@@ -1,1 +1,16 @@
-{"name":"Control de Horas - Wilmer Vargas","short_name":"Control Horas","start_url":"/","display":"standalone","background_color":"#f3f7fc","theme_color":"#075bd8","icons":[{"src":"icon.png","sizes":"1024x1024","type":"image/png","purpose":"any maskable"}]}
+{
+  "name": "Control de Horas - Wilmer Vargas",
+  "short_name": "Control Horas",
+  "start_url": "/-control-horas-wilmer-vargas/",
+  "display": "standalone",
+  "background_color": "#f3f7fc",
+  "theme_color": "#075bd8",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
