@@ -1,11 +1,891 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#075bd8"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Control de Horas"><link rel="apple-touch-icon" href="icon.png"><link rel="manifest" href="manifest.json"><title>Control de Horas</title><style>
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f3f7fc;color:#0d2347}.hero{background:linear-gradient(145deg,#063b7c,#0878ef);color:white;padding:28px 18px 24px;border-radius:0 0 28px 28px}.brand{display:flex;gap:13px;align-items:center}.brand img{width:62px;height:62px;border-radius:18px;object-fit:cover;border:2px solid #65b8ff}.brand h1{font-size:25px;margin:0}.brand p{margin:4px 0 0;color:#cce4ff}.hello{margin-top:22px}.hello h2{margin:0;font-size:27px}.hello p{margin:7px 0 0;color:#d7eaff}.wrap{max-width:760px;margin:auto}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:-12px 14px 14px;padding:10px;background:white;border-radius:20px;box-shadow:0 8px 30px #0b4c9120;position:relative}.tab{border:0;background:#f1f5fa;padding:13px 5px;border-radius:14px;font-weight:700;color:#17365f}.tab.active{background:#0876f1;color:white}.panel{background:white;margin:14px;border-radius:22px;padding:18px;box-shadow:0 8px 25px #183c6912}.panel h3{margin:0 0 4px;font-size:22px}.muted{color:#657994;font-size:14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.field label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid #cbd8e8;border-radius:12px;padding:13px;background:#f9fbfe;font-size:16px;color:#152d4f}.field.full{grid-column:1/-1}.save{width:100%;border:0;background:linear-gradient(90deg,#0869df,#0758c8);color:white;font-weight:800;font-size:17px;padding:15px;border-radius:14px;margin-top:14px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:14px}.stat{background:white;border-radius:18px;text-align:center;padding:14px 5px;box-shadow:0 5px 18px #183c6912}.stat b{font-size:24px;display:block}.stat span{font-size:12px;color:#64758c}.record{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-top:1px solid #e5edf6}.pill{background:#e7f2ff;color:#0665d4;padding:6px 9px;border-radius:10px;font-weight:800;height:max-content}.hidden{display:none}.bottom{position:sticky;bottom:0;background:#ffffffed;backdrop-filter:blur(12px);display:grid;grid-template-columns:repeat(4,1fr);padding:10px 8px calc(10px + env(safe-area-inset-bottom));border-top:1px solid #dbe5f0}.bottom button{border:0;background:none;color:#4c617c;font-weight:700}.bottom .on{color:#0873e9}.share{border:0;background:#20ad59;color:#fff;padding:11px 14px;border-radius:12px;font-weight:800}.worker-row{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid #e5edf6}@media(max-width:520px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.stats{grid-template-columns:1fr 1fr}.tabs{font-size:11px}.brand h1{font-size:23px}}
-</style></head><body><div class="wrap"><header class="hero"><div class="brand"><img src="icon.png"><div><h1>Control de Horas</h1><p>Wilmer Vargas · Reportes de trabajo</p></div></div><div class="hello"><h2>¡Hola, Wilmer! 👋</h2><p>Registra, consulta y comparte las horas de tus trabajadores.</p></div></header><nav class="tabs"><button class="tab active" data-page="registrar">Registrar</button><button class="tab" data-page="reportes">Reportes</button><button class="tab" data-page="trabajadores">Trabajadores</button><button class="tab" data-page="config">Configuración</button></nav>
-<section id="registrar" class="page"><div class="panel"><h3>📝 Registrar jornada</h3><div class="muted">Completa la información del día de trabajo.</div><div class="grid"><div class="field"><label>Trabajador</label><select id="worker"></select></div><div class="field"><label>Fecha</label><input id="date" type="date"></div><div class="field"><label>Entrada</label><input id="start" type="time" value="08:00"></div><div class="field"><label>Salida</label><input id="end" type="time" value="17:00"></div><div class="field"><label>Horas trabajadas</label><input id="hours" type="number" min="0" step="0.25" value="8"></div><div class="field"><label>Proyecto / Dirección</label><input id="project" placeholder="Dirección del trabajo"></div><div class="field full"><label>Nota</label><textarea id="note" rows="2" placeholder="Ej. parqueo, feriado, salió temprano..."></textarea></div></div><button class="save" id="save">💾 Guardar horas</button></div><div class="stats"><div class="stat"><b id="todayStat">0</b><span>Horas hoy</span></div><div class="stat"><b id="weekStat">0</b><span>Esta semana</span></div><div class="stat"><b id="monthStat">0</b><span>Este mes</span></div><div class="stat"><b id="workerStat">0</b><span>Trabajadores</span></div></div><div class="panel"><h3>↻ Últimos registros</h3><div id="recent"></div></div></section>
-<section id="reportes" class="page hidden"><div class="panel"><h3>📊 Reporte semanal</h3><p class="muted">Resumen listo para compartir.</p><div id="report"></div><button class="share" id="share">Compartir por WhatsApp</button></div></section>
-<section id="trabajadores" class="page hidden"><div class="panel"><h3>👥 Trabajadores</h3><div class="grid"><div class="field full"><label>Agregar trabajador</label><input id="newWorker" placeholder="Nombre completo"></div></div><button class="save" id="addWorker">+ Agregar trabajador</button><div id="workersList"></div></div></section>
-<section id="config" class="page hidden"><div class="panel"><h3>⚙️ Configuración</h3><p>Los datos se guardan en este dispositivo.</p><button class="save" id="export">Exportar respaldo</button></div></section>
-<nav class="bottom"><button class="on" data-page="registrar">⌂<br>Inicio</button><button data-page="reportes">▥<br>Reportes</button><button data-page="trabajadores">👥<br>Trabajadores</button><button data-page="config">•••<br>Más</button></nav></div><script>
-const KEY='controlHorasDataV2';let db=JSON.parse(localStorage.getItem(KEY)||'null')||{workers:['Ulises Duque'],entries:[]};const $=id=>document.getElementById(id);function persist(){localStorage.setItem(KEY,JSON.stringify(db))}function fmt(n){return Number(n||0).toFixed(Number(n||0)%1?2:0)}function today(){return new Date().toISOString().slice(0,10)}$('date').value=today();function renderWorkers(){ $('worker').innerHTML=db.workers.map(x=>`<option>${x}</option>`).join('');$('workersList').innerHTML=db.workers.map(x=>`<div class="worker-row"><b>${x}</b><span>Activo</span></div>`).join('');$('workerStat').textContent=db.workers.length}function weekStart(d){let x=new Date(d+'T12:00:00'),day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return x.toISOString().slice(0,10)}function render(){renderWorkers();let t=today(),ws=weekStart(t),month=t.slice(0,7);$('todayStat').textContent=fmt(db.entries.filter(e=>e.date===t).reduce((a,e)=>a+ +e.hours,0));$('weekStat').textContent=fmt(db.entries.filter(e=>e.date>=ws&&e.date<=t).reduce((a,e)=>a+ +e.hours,0));$('monthStat').textContent=fmt(db.entries.filter(e=>e.date.startsWith(month)).reduce((a,e)=>a+ +e.hours,0));let recent=[...db.entries].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);$('recent').innerHTML=recent.length?recent.map(e=>`<div class="record"><div><b>${e.worker}</b><div class="muted">${e.date} · ${e.start||''}${e.end?' - '+e.end:''}<br>${e.project||''}${e.note?' · '+e.note:''}</div></div><span class="pill">${fmt(e.hours)}h</span></div>`).join(''):'<p class="muted">Todavía no hay registros.</p>';let weekly=db.entries.filter(e=>e.date>=ws&&e.date<=t);let groups={};weekly.forEach(e=>(groups[e.worker]??=[]).push(e));$('report').innerHTML=Object.keys(groups).length?Object.entries(groups).map(([w,es])=>`<div class="record"><div><b>${w}</b><div class="muted">${es.length} jornada(s)</div></div><span class="pill">${fmt(es.reduce((a,e)=>a+ +e.hours,0))}h</span></div>`).join(''):'<p class="muted">No hay horas registradas esta semana.</p>'}
-$('save').onclick=()=>{let e={worker:$('worker').value,date:$('date').value,hours:+$('hours').value||0,start:$('start').value,end:$('end').value,project:$('project').value.trim(),note:$('note').value.trim()};if(!e.worker||!e.date)return alert('Selecciona trabajador y fecha.');db.entries.push(e);persist();render();$('project').value='';$('note').value='';alert('Horas guardadas correctamente.')} ;$('addWorker').onclick=()=>{let n=$('newWorker').value.trim();if(!n)return;if(!db.workers.includes(n))db.workers.push(n);$('newWorker').value='';persist();render()};function nav(p){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));$(p).classList.remove('hidden');document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===p));document.querySelectorAll('.bottom button').forEach(x=>x.classList.toggle('on',x.dataset.page===p));if(p==='reportes')render()}document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>nav(b.dataset.page));$('share').onclick=()=>{let t=today(),ws=weekStart(t),es=db.entries.filter(e=>e.date>=ws&&e.date<=t),lines=['REPORTE SEMANAL - CONTROL DE HORAS',`Semana: ${ws} al ${t}`,''];db.workers.forEach(w=>{let a=es.filter(e=>e.worker===w);if(a.length){lines.push(w);a.forEach(e=>lines.push(`${e.date}: ${fmt(e.hours)} h${e.project?' - '+e.project:''}${e.note?' ('+e.note+')':''}`));lines.push(`Total: ${fmt(a.reduce((s,e)=>s+ +e.hours,0))} h`,'')}});let text=lines.join('\n');if(navigator.share)navigator.share({title:'Reporte semanal',text}).catch(()=>{});else location.href='https://wa.me/?text='+encodeURIComponent(text)};$('export').onclick=()=>{let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='control-horas-respaldo.json';a.click()};render();
-</script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#075bd8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Control de Horas">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="manifest" href="manifest.json">
+<title>Control de Horas</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ background:#f1f6fc;color:#10274a
+}
+.wrap{max-width:760px;margin:auto;padding-bottom:85px}
+.hero{
+ background:linear-gradient(145deg,#053c82,#087cf4);
+ color:white;padding:25px 18px 30px;
+ border-radius:0 0 30px 30px
+}
+.brand{display:flex;align-items:center;gap:13px}
+.brand img{
+ width:64px;height:64px;border-radius:18px;
+ object-fit:cover;border:2px solid #77c5ff
+}
+.brand h1{margin:0;font-size:25px}
+.brand p{margin:4px 0;color:#d8ebff}
+.hero h2{font-size:27px;margin:22px 0 5px}
+.hero .sub{margin:0;color:#d8ebff}
+
+.tabs{
+ display:grid;grid-template-columns:repeat(4,1fr);
+ gap:7px;background:white;padding:10px;
+ margin:-14px 14px 15px;border-radius:20px;
+ position:relative;box-shadow:0 8px 25px #1744771a
+}
+.tab{
+ border:0;border-radius:14px;padding:13px 3px;
+ font-weight:750;background:#f0f4f9;color:#19385f
+}
+.tab.active{background:#0877ef;color:#fff}
+
+.card{
+ background:white;margin:14px;border-radius:23px;
+ padding:18px;box-shadow:0 8px 25px #173d6c12
+}
+.card h3{margin:0 0 5px;font-size:22px}
+.muted{color:#6a7e99;font-size:14px}
+
+.grid{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:12px;margin-top:17px
+}
+.field.full{grid-column:1/-1}
+.field label{
+ display:block;font-size:13px;font-weight:800;
+ margin:0 0 6px
+}
+.field input,.field select,.field textarea{
+ width:100%;border:1px solid #cbd9e9;
+ background:#f9fbfe;border-radius:13px;
+ padding:13px;font-size:16px;color:#10294d
+}
+.field textarea{resize:vertical}
+
+.primary{
+ width:100%;border:0;border-radius:14px;
+ background:linear-gradient(90deg,#0874eb,#0757c5);
+ color:white;font-weight:800;font-size:16px;
+ padding:15px;margin-top:15px
+}
+.green{
+ width:100%;border:0;border-radius:14px;
+ background:#20aa5b;color:white;
+ font-weight:800;font-size:16px;padding:14px;margin-top:10px
+}
+.secondary{
+ width:100%;border:1px solid #bfd0e3;border-radius:14px;
+ background:#f4f8fc;color:#15365e;font-weight:800;
+ font-size:15px;padding:13px;margin-top:9px
+}
+.danger{
+ border:0;border-radius:10px;padding:9px 11px;
+ background:#fff0f0;color:#c93232;font-weight:750
+}
+
+.stats{
+ display:grid;grid-template-columns:repeat(4,1fr);
+ gap:9px;margin:14px
+}
+.stat{
+ background:white;border-radius:18px;text-align:center;
+ padding:14px 4px;box-shadow:0 5px 18px #183c6912
+}
+.stat b{font-size:24px;display:block}
+.stat span{font-size:12px;color:#687a92}
+
+.workerCard{
+ border:1px solid #dce6f1;border-radius:17px;
+ padding:14px;margin-top:12px;background:#fbfdff
+}
+.workerTop{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px
+}
+.workerTop h4{margin:0;font-size:18px}
+.badge{
+ display:inline-block;background:#e6f2ff;color:#0765ce;
+ padding:5px 9px;border-radius:20px;
+ font-size:12px;font-weight:800;margin-top:5px
+}
+.workerInfo{
+ color:#637892;font-size:13px;line-height:1.65;
+ margin-top:9px
+}
+.historyBtn{
+ width:100%;border:0;background:#e8f2ff;
+ color:#0864cb;padding:11px;border-radius:11px;
+ font-weight:800;margin-top:10px
+}
+
+.entry{
+ padding:13px 0;border-top:1px solid #e4ecf5
+}
+.entry:first-child{border-top:0}
+.entryHead{
+ display:flex;justify-content:space-between;
+ align-items:start;gap:10px
+}
+.hours{
+ background:#e6f2ff;color:#0866cf;
+ padding:6px 9px;border-radius:10px;
+ font-weight:800;white-space:nowrap
+}
+.infoLine{
+ font-size:13px;color:#687d98;
+ line-height:1.55;margin-top:4px
+}
+.totalBox{
+ background:linear-gradient(145deg,#063d83,#0879ef);
+ color:white;border-radius:18px;padding:18px;margin-top:15px
+}
+.totalBox b{font-size:30px}
+.profile{
+ background:#f4f8fd;border-radius:16px;padding:14px;
+ margin-top:13px;line-height:1.7;font-size:14px
+}
+.hidden{display:none!important}
+
+.bottom{
+ position:fixed;bottom:0;left:0;right:0;
+ max-width:760px;margin:auto;
+ background:#fffffff2;backdrop-filter:blur(12px);
+ display:grid;grid-template-columns:repeat(4,1fr);
+ padding:10px 5px calc(10px + env(safe-area-inset-bottom));
+ border-top:1px solid #dce6f1;z-index:20
+}
+.bottom button{
+ border:0;background:none;color:#526781;
+ font-weight:750;font-size:12px
+}
+.bottom button.on{color:#0873e9}
+
+.modal{
+ position:fixed;inset:0;background:#0c203e88;
+ z-index:50;padding:20px;overflow:auto
+}
+.modalBox{
+ max-width:700px;margin:25px auto;background:white;
+ border-radius:24px;padding:19px
+}
+.modalHead{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px
+}
+.close{
+ border:0;background:#edf3fa;border-radius:50%;
+ width:38px;height:38px;font-size:20px
+}
+
+@media(max-width:520px){
+ .grid{grid-template-columns:1fr}
+ .field.full{grid-column:auto}
+ .stats{grid-template-columns:1fr 1fr}
+ .tabs{font-size:11px}
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<header class="hero">
+ <div class="brand">
+  <img src="icon.png">
+  <div>
+   <h1>Control de Horas</h1>
+   <p>Wilmer Vargas · Administración de personal</p>
+  </div>
+ </div>
+ <h2>¡Hola, Wilmer! 👋</h2>
+ <p class="sub">Control profesional de trabajadores y jornadas.</p>
+</header>
+
+<nav class="tabs">
+ <button class="tab active" data-page="registrar">Registrar</button>
+ <button class="tab" data-page="reportes">Reportes</button>
+ <button class="tab" data-page="trabajadores">Trabajadores</button>
+ <button class="tab" data-page="config">Configuración</button>
+</nav>
+
+<section id="registrar" class="page">
+ <div class="card">
+  <h3>📝 Registrar jornada</h3>
+  <div class="muted">Guarda las horas y detalles del día.</div>
+
+  <div class="grid">
+   <div class="field full">
+    <label>Trabajador</label>
+    <select id="worker"></select>
+   </div>
+
+   <div class="field">
+    <label>Fecha</label>
+    <input id="date" type="date">
+   </div>
+
+   <div class="field">
+    <label>Zona de parqueo</label>
+    <select id="parking">
+     <option value="No">No</option>
+     <option value="Sí">Sí</option>
+    </select>
+   </div>
+
+   <div class="field">
+    <label>Hora de entrada</label>
+    <input id="start" type="time" value="08:00">
+   </div>
+
+   <div class="field">
+    <label>Hora de salida</label>
+    <input id="end" type="time" value="17:00">
+   </div>
+
+   <div class="field">
+    <label>Horas trabajadas</label>
+    <input id="hours" type="number" min="0" step=".25" value="8">
+   </div>
+
+   <div class="field">
+    <label>Dirección del trabajo</label>
+    <input id="project" placeholder="Dirección completa">
+   </div>
+
+   <div class="field full">
+    <label>Notas</label>
+    <textarea id="note" rows="3"
+     placeholder="Feriado, salió temprano, información adicional..."></textarea>
+   </div>
+  </div>
+
+  <button class="primary" id="save">💾 Guardar jornada</button>
+ </div>
+
+ <div class="stats">
+  <div class="stat"><b id="todayStat">0</b><span>Horas hoy</span></div>
+  <div class="stat"><b id="weekStat">0</b><span>Esta semana</span></div>
+  <div class="stat"><b id="monthStat">0</b><span>Este mes</span></div>
+  <div class="stat"><b id="workerStat">0</b><span>Trabajadores</span></div>
+ </div>
+
+ <div class="card">
+  <h3>🕐 Últimos registros</h3>
+  <div id="recent"></div>
+ </div>
+</section>
+
+<section id="reportes" class="page hidden">
+ <div class="card">
+  <h3>📊 Reportes de trabajadores</h3>
+  <p class="muted">Selecciona un trabajador para consultar y compartir su reporte.</p>
+
+  <div class="field">
+   <label>Trabajador</label>
+   <select id="reportWorker"></select>
+  </div>
+
+  <div id="reportContent"></div>
+
+  <button class="green" id="pdfShare">📄 Compartir reporte / PDF</button>
+  <button class="secondary" id="printReport">🖨️ Abrir reporte para imprimir o guardar PDF</button>
+ </div>
+</section>
+
+<section id="trabajadores" class="page hidden">
+ <div class="card">
+  <h3>👥 Nuevo trabajador</h3>
+  <p class="muted">Crea una ficha completa para cada empleado.</p>
+
+  <div class="grid">
+   <div class="field full">
+    <label>Nombre completo</label>
+    <input id="newName" placeholder="Nombre y apellidos">
+   </div>
+
+   <div class="field">
+    <label>Correo electrónico</label>
+    <input id="newEmail" type="email" placeholder="correo@ejemplo.com">
+   </div>
+
+   <div class="field">
+    <label>Número de teléfono</label>
+    <input id="newPhone" type="tel" placeholder="(000) 000-0000">
+   </div>
+
+   <div class="field">
+    <label>Puesto / Trabajo</label>
+    <select id="newRole">
+     <option>Ayudante</option>
+     <option>Ayudante avanzado</option>
+     <option>Electricista</option>
+    </select>
+   </div>
+
+   <div class="field">
+    <label>Hora de entrada habitual</label>
+    <input id="newStart" type="time" value="08:00">
+   </div>
+
+   <div class="field">
+    <label>Hora de salida habitual</label>
+    <input id="newEnd" type="time" value="17:00">
+   </div>
+
+   <div class="field">
+    <label>Zona de parqueo</label>
+    <select id="newParking">
+     <option value="No">No</option>
+     <option value="Sí">Sí</option>
+    </select>
+   </div>
+
+   <div class="field full">
+    <label>Dirección / Proyecto actual</label>
+    <input id="newAddress" placeholder="Dirección del trabajo">
+   </div>
+  </div>
+
+  <button class="primary" id="addWorker">+ Guardar trabajador</button>
+ </div>
+
+ <div class="card">
+  <h3>📁 Expedientes</h3>
+  <p class="muted">Toca “Ver historial” para abrir el expediente completo.</p>
+  <div id="workersList"></div>
+ </div>
+</section>
+
+<section id="config" class="page hidden">
+ <div class="card">
+  <h3>⚙️ Configuración</h3>
+  <p>La información queda guardada en este dispositivo.</p>
+  <button class="primary" id="export">💾 Exportar respaldo de todos los datos</button>
+ </div>
+</section>
+
+<nav class="bottom">
+ <button class="on" data-page="registrar">⌂<br>Inicio</button>
+ <button data-page="reportes">▥<br>Reportes</button>
+ <button data-page="trabajadores">👥<br>Trabajadores</button>
+ <button data-page="config">•••<br>Más</button>
+</nav>
+
+</div>
+
+<div id="modal" class="modal hidden">
+ <div class="modalBox">
+  <div class="modalHead">
+   <h3>Expediente del trabajador</h3>
+   <button class="close" onclick="closeModal()">×</button>
+  </div>
+  <div id="modalContent"></div>
+ </div>
+</div>
+
+<script>
+const KEY="controlHorasDataV2";
+const $=id=>document.getElementById(id);
+
+let old=JSON.parse(localStorage.getItem(KEY)||"null");
+
+let db=old||{workers:[],entries:[]};
+
+if(!Array.isArray(db.workers)) db.workers=[];
+if(!Array.isArray(db.entries)) db.entries=[];
+
+/* Convierte trabajadores antiguos que solo tenían nombre */
+db.workers=db.workers.map((w,i)=>{
+ if(typeof w==="string"){
+  return {
+   id:"w"+Date.now()+i,
+   name:w,
+   email:"",
+   phone:"",
+   role:"",
+   defaultStart:"08:00",
+   defaultEnd:"17:00",
+   parking:"No",
+   address:""
+  };
+ }
+ if(!w.id) w.id="w"+Date.now()+i;
+ return w;
+});
+
+function persist(){
+ localStorage.setItem(KEY,JSON.stringify(db));
+}
+
+persist();
+
+function today(){
+ const d=new Date();
+ const y=d.getFullYear();
+ const m=String(d.getMonth()+1).padStart(2,"0");
+ const day=String(d.getDate()).padStart(2,"0");
+ return `${y}-${m}-${day}`;
+}
+
+function fmt(n){
+ n=Number(n||0);
+ return Number.isInteger(n)?String(n):n.toFixed(2);
+}
+
+function prettyDate(s){
+ if(!s)return "";
+ let [y,m,d]=s.split("-");
+ return `${m}/${d}/${y}`;
+}
+
+function workerNameFromEntry(e){
+ if(e.workerId){
+  let w=db.workers.find(x=>x.id===e.workerId);
+  if(w)return w.name;
+ }
+ return e.worker||"Trabajador";
+}
+
+function getWorkerEntries(w){
+ return db.entries
+  .filter(e=>e.workerId===w.id || (!e.workerId && e.worker===w.name))
+  .sort((a,b)=>b.date.localeCompare(a.date));
+}
+
+function weekStart(date){
+ let x=new Date(date+"T12:00:00");
+ let day=(x.getDay()+6)%7;
+ x.setDate(x.getDate()-day);
+ return x.toISOString().slice(0,10);
+}
+
+$("date").value=today();
+
+function renderWorkers(){
+ const options=db.workers.map(w=>
+  `<option value="${w.id}">${w.name}</option>`
+ ).join("");
+
+ $("worker").innerHTML=options;
+ $("reportWorker").innerHTML=options;
+ $("workerStat").textContent=db.workers.length;
+
+ $("workersList").innerHTML=db.workers.length
+ ? db.workers.map(w=>`
+   <div class="workerCard">
+    <div class="workerTop">
+     <div>
+      <h4>${w.name}</h4>
+      <span class="badge">${w.role||"Sin puesto asignado"}</span>
+     </div>
+    </div>
+
+    <div class="workerInfo">
+     📞 ${w.phone||"Sin teléfono"}<br>
+     ✉️ ${w.email||"Sin correo"}<br>
+     🕐 ${w.defaultStart||"--:--"} - ${w.defaultEnd||"--:--"}<br>
+     📍 ${w.address||"Sin dirección asignada"}<br>
+     🅿️ Parqueo: ${w.parking||"No"}
+    </div>
+
+    <button class="historyBtn"
+     onclick="openHistory('${w.id}')">
+     📋 Ver historial completo
+    </button>
+   </div>
+ `).join("")
+ : `<p class="muted">Todavía no hay trabajadores registrados.</p>`;
+}
+
+function renderRecent(){
+ let recent=[...db.entries]
+  .sort((a,b)=>b.date.localeCompare(a.date))
+  .slice(0,6);
+
+ $("recent").innerHTML=recent.length
+ ?recent.map(e=>`
+  <div class="entry">
+   <div class="entryHead">
+    <div>
+     <b>${workerNameFromEntry(e)}</b>
+     <div class="infoLine">
+      📅 ${prettyDate(e.date)}<br>
+      🕐 ${e.start||"--"} - ${e.end||"--"}<br>
+      📍 ${e.project||"Sin dirección"}<br>
+      🅿️ Parqueo: ${e.parking||"No"}
+      ${e.note?`<br>📝 ${e.note}`:""}
+     </div>
+    </div>
+    <span class="hours">${fmt(e.hours)} h</span>
+   </div>
+  </div>
+ `).join("")
+ :`<p class="muted">Todavía no hay registros.</p>`;
+}
+
+function renderStats(){
+ let t=today(), ws=weekStart(t), month=t.slice(0,7);
+
+ $("todayStat").textContent=fmt(
+  db.entries.filter(e=>e.date===t)
+  .reduce((a,e)=>a+Number(e.hours||0),0)
+ );
+
+ $("weekStat").textContent=fmt(
+  db.entries.filter(e=>e.date>=ws&&e.date<=t)
+  .reduce((a,e)=>a+Number(e.hours||0),0)
+ );
+
+ $("monthStat").textContent=fmt(
+  db.entries.filter(e=>e.date&&e.date.startsWith(month))
+  .reduce((a,e)=>a+Number(e.hours||0),0)
+ );
+}
+
+function renderReport(){
+ let id=$("reportWorker").value;
+ let w=db.workers.find(x=>x.id===id);
+
+ if(!w){
+  $("reportContent").innerHTML=
+   `<p class="muted">Agrega un trabajador primero.</p>`;
+  return;
+ }
+
+ let entries=getWorkerEntries(w);
+ let total=entries.reduce((a,e)=>a+Number(e.hours||0),0);
+
+ $("reportContent").innerHTML=`
+  <div class="profile">
+   <b>${w.name}</b><br>
+   Puesto: ${w.role||"No especificado"}<br>
+   Teléfono: ${w.phone||"No especificado"}<br>
+   Correo: ${w.email||"No especificado"}<br>
+   Dirección actual: ${w.address||"No especificada"}<br>
+   Horario habitual: ${w.defaultStart||"--"} - ${w.defaultEnd||"--"}<br>
+   Parqueo: ${w.parking||"No"}
+  </div>
+
+  <div class="totalBox">
+   <div>Total de horas registradas</div>
+   <b>${fmt(total)} horas</b>
+   <div>${entries.length} jornada(s)</div>
+  </div>
+
+  <div style="margin-top:14px">
+   ${entries.length?entries.map(e=>`
+    <div class="entry">
+     <div class="entryHead">
+      <div>
+       <b>📅 ${prettyDate(e.date)}</b>
+       <div class="infoLine">
+        Entrada: ${e.start||"--"}<br>
+        Salida: ${e.end||"--"}<br>
+        Dirección: ${e.project||"Sin dirección"}<br>
+        Parqueo: ${e.parking||"No"}
+        ${e.note?`<br>Nota: ${e.note}`:""}
+       </div>
+      </div>
+      <span class="hours">${fmt(e.hours)} h</span>
+     </div>
+    </div>
+   `).join(""):`<p class="muted">No tiene jornadas registradas.</p>`}
+  </div>
+ `;
+}
+
+function render(){
+ renderWorkers();
+ renderStats();
+ renderRecent();
+ renderReport();
+}
+
+$("worker").addEventListener("change",()=>{
+ let w=db.workers.find(x=>x.id===$("worker").value);
+ if(w){
+  $("start").value=w.defaultStart||"08:00";
+  $("end").value=w.defaultEnd||"17:00";
+  $("project").value=w.address||"";
+  $("parking").value=w.parking||"No";
+ }
+});
+
+$("save").onclick=()=>{
+ let w=db.workers.find(x=>x.id===$("worker").value);
+
+ if(!w){
+  alert("Primero debes agregar un trabajador.");
+  return;
+ }
+
+ let e={
+  id:"e"+Date.now(),
+  workerId:w.id,
+  worker:w.name,
+  date:$("date").value,
+  start:$("start").value,
+  end:$("end").value,
+  hours:Number($("hours").value||0),
+  project:$("project").value.trim(),
+  parking:$("parking").value,
+  note:$("note").value.trim()
+ };
+
+ if(!e.date){
+  alert("Selecciona la fecha.");
+  return;
+ }
+
+ db.entries.push(e);
+ persist();
+ render();
+
+ $("note").value="";
+ alert("✅ Jornada guardada en el historial de "+w.name);
+};
+
+$("addWorker").onclick=()=>{
+ let name=$("newName").value.trim();
+
+ if(!name){
+  alert("Escribe el nombre completo.");
+  return;
+ }
+
+ let w={
+  id:"w"+Date.now(),
+  name,
+  email:$("newEmail").value.trim(),
+  phone:$("newPhone").value.trim(),
+  role:$("newRole").value,
+  defaultStart:$("newStart").value,
+  defaultEnd:$("newEnd").value,
+  parking:$("newParking").value,
+  address:$("newAddress").value.trim()
+ };
+
+ db.workers.push(w);
+ persist();
+
+ [
+  "newName","newEmail","newPhone","newAddress"
+ ].forEach(id=>$(id).value="");
+
+ render();
+
+ alert("✅ Trabajador guardado correctamente.");
+};
+
+$("reportWorker").onchange=renderReport;
+
+function openHistory(id){
+ let w=db.workers.find(x=>x.id===id);
+ if(!w)return;
+
+ let es=getWorkerEntries(w);
+ let total=es.reduce((a,e)=>a+Number(e.hours||0),0);
+
+ $("modalContent").innerHTML=`
+  <div class="profile">
+   <b style="font-size:22px">${w.name}</b><br>
+   👷 ${w.role||"Puesto no especificado"}<br>
+   📞 ${w.phone||"Sin teléfono"}<br>
+   ✉️ ${w.email||"Sin correo"}<br>
+   📍 ${w.address||"Sin dirección"}<br>
+   🕐 Horario: ${w.defaultStart||"--"} - ${w.defaultEnd||"--"}<br>
+   🅿️ Parqueo: ${w.parking||"No"}
+  </div>
+
+  <div class="totalBox">
+   <div>Historial acumulado</div>
+   <b>${fmt(total)} horas</b>
+   <div>${es.length} jornadas registradas</div>
+  </div>
+
+  <h3 style="margin-top:20px">Historial de horas</h3>
+
+  ${es.length?es.map(e=>`
+   <div class="entry">
+    <div class="entryHead">
+     <div>
+      <b>${prettyDate(e.date)}</b>
+      <div class="infoLine">
+       Entrada: ${e.start||"--"}<br>
+       Salida: ${e.end||"--"}<br>
+       Dirección: ${e.project||"Sin dirección"}<br>
+       Parqueo: ${e.parking||"No"}
+       ${e.note?`<br>Nota: ${e.note}`:""}
+      </div>
+     </div>
+     <span class="hours">${fmt(e.hours)} h</span>
+    </div>
+   </div>
+  `).join(""):
+  `<p class="muted">Todavía no tiene horas registradas.</p>`}
+
+  <button class="green"
+   onclick="shareWorker('${w.id}')">
+   📄 Compartir reporte
+  </button>
+ `;
+
+ $("modal").classList.remove("hidden");
+}
+
+function closeModal(){
+ $("modal").classList.add("hidden");
+}
+
+function reportHTML(w){
+ let es=getWorkerEntries(w);
+ let total=es.reduce((a,e)=>a+Number(e.hours||0),0);
+
+ let rows=es.map(e=>`
+ <tr>
+  <td>${prettyDate(e.date)}</td>
+  <td>${e.start||"--"}</td>
+  <td>${e.end||"--"}</td>
+  <td>${fmt(e.hours)}</td>
+  <td>${e.project||""}</td>
+  <td>${e.parking||"No"}</td>
+  <td>${e.note||""}</td>
+ </tr>`).join("");
+
+ return `
+ <!doctype html>
+ <html>
+ <head>
+ <meta charset="utf-8">
+ <title>Reporte - ${w.name}</title>
+ <style>
+ body{font-family:Arial,sans-serif;color:#142844;padding:30px}
+ .head{background:#075bd8;color:white;padding:22px;border-radius:12px}
+ h1{margin:0 0 5px}
+ .profile{margin:20px 0;line-height:1.7}
+ table{width:100%;border-collapse:collapse;font-size:12px}
+ th{background:#eaf3ff;text-align:left}
+ th,td{border:1px solid #ccd8e6;padding:8px}
+ .total{margin-top:18px;font-size:20px;font-weight:bold}
+ .foot{margin-top:35px;color:#68788c;font-size:11px}
+ @media print{body{padding:5px}.head{-webkit-print-color-adjust:exact}}
+ </style>
+ </head>
+ <body>
+ <div class="head">
+  <h1>CONTROL DE HORAS</h1>
+  <div>Reporte profesional del trabajador</div>
+ </div>
+
+ <div class="profile">
+  <b>Trabajador:</b> ${w.name}<br>
+  <b>Puesto:</b> ${w.role||"No especificado"}<br>
+  <b>Teléfono:</b> ${w.phone||"No especificado"}<br>
+  <b>Correo:</b> ${w.email||"No especificado"}<br>
+  <b>Horario habitual:</b> ${w.defaultStart||"--"} - ${w.defaultEnd||"--"}<br>
+  <b>Dirección actual:</b> ${w.address||"No especificada"}
+ </div>
+
+ <table>
+  <thead>
+   <tr>
+    <th>Fecha</th>
+    <th>Entrada</th>
+    <th>Salida</th>
+    <th>Horas</th>
+    <th>Dirección</th>
+    <th>Parqueo</th>
+    <th>Nota</th>
+   </tr>
+  </thead>
+  <tbody>${rows}</tbody>
+ </table>
+
+ <div class="total">
+  Total de horas: ${fmt(total)}
+ </div>
+
+ <div class="foot">
+  Control de Horas · Wilmer Vargas
+ </div>
+ </body>
+ </html>`;
+}
+
+function shareWorker(id){
+ let w=db.workers.find(x=>x.id===id);
+ if(!w)return;
+ openPrintable(w);
+}
+
+function openPrintable(w){
+ let html=reportHTML(w);
+ let win=window.open("","_blank");
+
+ if(!win){
+  alert("Permite las ventanas emergentes para crear el reporte.");
+  return;
+ }
+
+ win.document.open();
+ win.document.write(html);
+ win.document.close();
+
+ setTimeout(()=>{
+  win.focus();
+  win.print();
+ },500);
+}
+
+$("pdfShare").onclick=()=>{
+ let w=db.workers.find(x=>x.id===$("reportWorker").value);
+ if(w)openPrintable(w);
+};
+
+$("printReport").onclick=()=>{
+ let w=db.workers.find(x=>x.id===$("reportWorker").value);
+ if(w)openPrintable(w);
+};
+
+$("export").onclick=()=>{
+ let blob=new Blob(
+  [JSON.stringify(db,null,2)],
+  {type:"application/json"}
+ );
+ let a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download="respaldo-control-horas.json";
+ a.click();
+};
+
+function nav(p){
+ document.querySelectorAll(".page")
+  .forEach(x=>x.classList.add("hidden"));
+
+ $(p).classList.remove("hidden");
+
+ document.querySelectorAll(".tab").forEach(x=>
+  x.classList.toggle("active",x.dataset.page===p)
+ );
+
+ document.querySelectorAll(".bottom button").forEach(x=>
+  x.classList.toggle("on",x.dataset.page===p)
+ );
+
+ if(p==="reportes")renderReport();
+}
+
+document.querySelectorAll("[data-page]")
+ .forEach(b=>b.onclick=()=>nav(b.dataset.page));
+
+render();
+</script>
+</body>
+</html>
