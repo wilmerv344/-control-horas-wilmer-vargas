@@ -33,6 +33,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:17px}
 .full{grid-column:1/-1}
+
 .field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}
 .field input,.field select,.field textarea{
 width:100%;border:1px solid #cbd9e9;background:#f9fbfe;
@@ -43,6 +44,7 @@ border-radius:13px;padding:13px;font-size:16px;color:#10294d
 width:100%;border-radius:14px;font-weight:800;font-size:16px;
 padding:14px;margin-top:10px
 }
+
 .primary{border:0;background:#0873e9;color:white}
 .secondary{border:1px solid #bfd0e3;background:#f4f8fc;color:#15365e}
 .green{border:0;background:#20aa5b;color:white}
@@ -64,6 +66,7 @@ padding:14px;margin-top:10px
 .workerCard h4{margin:0;font-size:19px}
 .badge{display:inline-block;background:#e6f2ff;color:#0765ce;padding:5px 9px;border-radius:20px;font-size:12px;font-weight:800;margin-top:5px}
 .workerInfo{color:#637892;font-size:13px;line-height:1.7;margin-top:9px}
+
 .workerActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 .historyBtn,.editBtn,.hoursBtn,.reportBtn{border:0;padding:12px 5px;border-radius:11px;font-weight:800}
 .historyBtn{background:#e8f2ff;color:#0864cb}
@@ -82,8 +85,10 @@ padding:14px;margin-top:10px
 .stat span{font-size:12px;color:#687a92}
 
 .profile{background:#f4f8fd;border-radius:16px;padding:14px;margin-top:13px;line-height:1.7;font-size:14px}
+
 .totalBox{background:#075bd8;color:white;border-radius:18px;padding:18px;margin-top:15px}
 .totalBox b{font-size:30px}
+
 .hidden{display:none!important}
 
 .bottom{
@@ -92,6 +97,7 @@ background:#fffffff2;display:grid;grid-template-columns:repeat(4,1fr);
 padding:10px 5px calc(10px + env(safe-area-inset-bottom));
 border-top:1px solid #dce6f1;z-index:20
 }
+
 .bottom button{border:0;background:none;color:#526781;font-weight:750;font-size:12px}
 .bottom button.on{color:#0873e9}
 
@@ -110,6 +116,7 @@ border-top:1px solid #dce6f1;z-index:20
 </head>
 
 <body>
+
 <div class="wrap">
 
 <header class="hero">
@@ -120,6 +127,7 @@ border-top:1px solid #dce6f1;z-index:20
 <p>Wilmer Vargas · Administración de personal</p>
 </div>
 </div>
+
 <h2>¡Hola, Wilmer! 👋</h2>
 <p class="sub">Control profesional de trabajadores y jornadas.</p>
 </header>
@@ -134,6 +142,7 @@ border-top:1px solid #dce6f1;z-index:20
 <section id="registrar" class="page">
 
 <div class="card">
+
 <h3>📅 Horas semanales</h3>
 <p class="muted">Selecciona el trabajador y registra sus horas de lunes a domingo.</p>
 
@@ -144,10 +153,12 @@ border-top:1px solid #dce6f1;z-index:20
 
 <div class="weekHeader">
 <button class="weekNav" id="prevWeek">‹</button>
+
 <div>
 <div class="weekTitle">SEMANA</div>
 <div id="weekRange" class="muted"></div>
 </div>
+
 <button class="weekNav" id="nextWeek">›</button>
 </div>
 
@@ -174,30 +185,38 @@ border-top:1px solid #dce6f1;z-index:20
 </section>
 
 <section id="reportes" class="page hidden">
+
 <div class="card">
+
 <h3>📊 Informes</h3>
 <p class="muted">Selecciona un trabajador y una semana.</p>
 
 <div class="grid">
+
 <div class="field">
 <label>Trabajador</label>
 <select id="reportWorker"></select>
 </div>
+
 <div class="field">
 <label>Semana</label>
 <input id="reportWeek" type="date">
 </div>
+
 </div>
 
 <div id="reportContent"></div>
 
 <button class="green" id="pdfShare">📄 Ver informe semanal / PDF</button>
+
 </div>
+
 </section>
 
 <section id="trabajadores" class="page hidden">
 
 <div class="card">
+
 <h3>👥 Nuevo trabajador</h3>
 
 <div class="grid">
@@ -252,6 +271,7 @@ border-top:1px solid #dce6f1;z-index:20
 </div>
 
 <button class="primary" id="addWorker">+ Guardar trabajador</button>
+
 </div>
 
 <div class="card">
@@ -263,11 +283,13 @@ border-top:1px solid #dce6f1;z-index:20
 </section>
 
 <section id="config" class="page hidden">
+
 <div class="card">
 <h3>⚙️ Configuración</h3>
 <p class="muted">Crea una copia de seguridad de trabajadores y horas.</p>
 <button class="primary" id="export">💾 Exportar respaldo</button>
 </div>
+
 </section>
 
 <nav class="bottom">
@@ -281,12 +303,16 @@ border-top:1px solid #dce6f1;z-index:20
 
 <div id="historyModal" class="modal hidden">
 <div class="modalBox">
+
 <div class="modalHead">
 <h3>📅 Historial</h3>
 <button class="close" onclick="closeHistory()">×</button>
 </div>
+
 <div id="historyContent"></div>
+
 <button class="secondary" onclick="closeHistory()">✕ Cerrar / Volver</button>
+
 </div>
 </div>
 
@@ -359,6 +385,7 @@ border-top:1px solid #dce6f1;z-index:20
 
 <div id="reportModal" class="modal hidden">
 <div class="modalBox">
+
 <div class="modalHead">
 <h3>📄 Informe semanal</h3>
 <button class="close" onclick="closeReport()">×</button>
@@ -366,13 +393,15 @@ border-top:1px solid #dce6f1;z-index:20
 
 <div id="reportModalContent"></div>
 
-<button class="green" id="printPDF">📲 Abrir para compartir / guardar PDF</button>
+<button class="green" id="openShareReport">📤 Abrir informe para compartir / PDF</button>
+
 <button class="secondary" onclick="closeReport()">✕ Cerrar / Volver</button>
 
 </div>
 </div>
 
 <script>
+
 const KEY="controlHorasDataV2";
 const $=id=>document.getElementById(id);
 
@@ -398,7 +427,6 @@ parking:"No",
 address:""
 };
 }
-
 if(!w.id)w.id="w"+Date.now()+i;
 return w;
 });
@@ -482,6 +510,18 @@ return db.entries.find(e=>
 );
 }
 
+function escapeHTML(value){
+return String(value||"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;");
+}
+
+function escapeAttr(value){
+return escapeHTML(value).replaceAll("'","&#39;");
+}
+
 let currentWeek=mondayOf(today());
 let currentReportWorker=null;
 let currentReportMonday=null;
@@ -501,28 +541,42 @@ const DAY_NAMES=[
 
 function renderWorkers(){
 
+let oldWorker=$("worker").value;
+let oldReport=$("reportWorker").value;
+
 let options=db.workers.map(w=>
-`<option value="${w.id}">${w.name}</option>`
+`<option value="${w.id}">${escapeHTML(w.name)}</option>`
 ).join("");
 
 $("worker").innerHTML=options;
 $("reportWorker").innerHTML=options;
 $("workerStat").textContent=db.workers.length;
 
+if(oldWorker&&db.workers.some(w=>w.id===oldWorker)){
+$("worker").value=oldWorker;
+}
+
+if(oldReport&&db.workers.some(w=>w.id===oldReport)){
+$("reportWorker").value=oldReport;
+}
+
 $("workersList").innerHTML=db.workers.length
 ?db.workers.map(w=>`
 
 <div class="workerCard">
 
-<h4>${w.name}</h4>
-<span class="badge">${w.role||"Sin puesto"}</span>
+<h4>${escapeHTML(w.name)}</h4>
+
+<span class="badge">
+${escapeHTML(w.role||"Sin puesto")}
+</span>
 
 <div class="workerInfo">
-📞 ${w.phone||"Sin teléfono"}<br>
-✉️ ${w.email||"Sin correo"}<br>
-🕐 ${w.defaultStart||"--"} - ${w.defaultEnd||"--"}<br>
-📍 ${w.address||"Sin dirección"}<br>
-🅿️ Parqueo: ${w.parking||"No"}
+📞 ${escapeHTML(w.phone||"Sin teléfono")}<br>
+✉️ ${escapeHTML(w.email||"Sin correo")}<br>
+🕐 ${escapeHTML(w.defaultStart||"--")} - ${escapeHTML(w.defaultEnd||"--")}<br>
+📍 ${escapeHTML(w.address||"Sin dirección")}<br>
+🅿️ Parqueo: ${escapeHTML(w.parking||"No")}
 </div>
 
 <div class="workerActions">
@@ -597,40 +651,29 @@ return`
 <div class="dayDate">📅 ${prettyDate(date)}</div>
 </div>
 
-<div id="badge${index}"
-class="dayTotal ${e?"saved":""}">
+<div id="badge${index}" class="dayTotal ${e?"saved":""}">
 ${e?"✓ "+fmt(hours)+" h":"Agregar"}
 </div>
 
 </div>
 
-<div id="dayBody${index}"
-class="dayBody ${e?"":"hidden"}">
+<div id="dayBody${index}" class="dayBody ${e?"":"hidden"}">
 
 <div class="grid">
 
 <div class="field">
 <label>Hora de entrada</label>
-<input id="start${index}"
-type="time"
-value="${start}"
-onchange="autoHours(${index})">
+<input id="start${index}" type="time" value="${start}" onchange="autoHours(${index})">
 </div>
 
 <div class="field">
 <label>Hora de salida</label>
-<input id="end${index}"
-type="time"
-value="${end}"
-onchange="autoHours(${index})">
+<input id="end${index}" type="time" value="${end}" onchange="autoHours(${index})">
 </div>
 
 <div class="field">
 <label>Horas trabajadas</label>
-<input id="hours${index}"
-type="number"
-step=".25"
-min="0"
+<input id="hours${index}" type="number" step=".25" min="0"
 value="${e?fmt(hours):fmt(calcHours(start,end))}">
 </div>
 
@@ -644,51 +687,33 @@ value="${e?fmt(hours):fmt(calcHours(start,end))}">
 
 <div class="field full">
 <label>Dirección / Proyecto</label>
-<input id="project${index}"
-value="${escapeAttr(project)}">
+<input id="project${index}" value="${escapeAttr(project)}">
 </div>
 
 <div class="field full">
 <label>Notas</label>
-<textarea id="note${index}"
-rows="2">${escapeHTML(note)}</textarea>
+<textarea id="note${index}" rows="2">${escapeHTML(note)}</textarea>
 </div>
 
 </div>
 
-<button class="primary"
-onclick="saveDay(${index})">
+<button class="primary" onclick="saveDay(${index})">
 💾 Guardar ${day}
 </button>
 
 ${e?`
-<button class="danger"
-onclick="deleteDay(${index})">
+<button class="danger" onclick="deleteDay(${index})">
 🗑️ Eliminar horas de ${day}
 </button>
 `:""}
 
 </div>
 </div>
-
 `;
 
 }).join("");
 
-$("selectedWeekTotal").textContent=
-fmt(weekTotal)+" horas";
-}
-
-function escapeHTML(value){
-return String(value||"")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;");
-}
-
-function escapeAttr(value){
-return escapeHTML(value).replaceAll("'","&#39;");
+$("selectedWeekTotal").textContent=fmt(weekTotal)+" horas";
 }
 
 function toggleDay(index){
@@ -711,7 +736,6 @@ return;
 }
 
 let date=addDays(currentWeek,index);
-
 let existing=entryForDay(w,date);
 
 let data={
@@ -747,13 +771,12 @@ let w=db.workers.find(x=>x.id===$("worker").value);
 if(!w)return;
 
 let date=addDays(currentWeek,index);
-
 let e=entryForDay(w,date);
+
 if(!e)return;
 
 if(!confirm(
-"¿Eliminar las horas de "+DAY_NAMES[index]+
-" "+prettyDate(date)+"?"
+"¿Eliminar las horas de "+DAY_NAMES[index]+" "+prettyDate(date)+"?"
 ))return;
 
 db.entries=db.entries.filter(x=>x.id!==e.id);
@@ -924,13 +947,9 @@ let w=db.workers.find(x=>x.id===id);
 
 if(!w)return;
 
-if(!confirm(
-"¿Seguro que deseas eliminar a "+w.name+"?"
-))return;
+if(!confirm("¿Seguro que deseas eliminar a "+w.name+"?"))return;
 
-if(!confirm(
-"También se eliminarán todas sus horas. ¿Continuar?"
-))return;
+if(!confirm("También se eliminarán todas sus horas. ¿Continuar?"))return;
 
 db.workers=db.workers.filter(x=>x.id!==id);
 
@@ -957,10 +976,10 @@ let total=es.reduce(
 $("historyContent").innerHTML=`
 
 <div class="profile">
-<b style="font-size:22px">${w.name}</b><br>
-👷 ${w.role||"Sin puesto"}<br>
-📞 ${w.phone||"Sin teléfono"}<br>
-✉️ ${w.email||"Sin correo"}
+<b style="font-size:22px">${escapeHTML(w.name)}</b><br>
+👷 ${escapeHTML(w.role||"Sin puesto")}<br>
+📞 ${escapeHTML(w.phone||"Sin teléfono")}<br>
+✉️ ${escapeHTML(w.email||"Sin correo")}
 </div>
 
 <div class="totalBox">
@@ -969,9 +988,7 @@ $("historyContent").innerHTML=`
 <div>${es.length} jornadas</div>
 </div>
 
-<h3 style="margin-top:20px">
-Jornadas registradas
-</h3>
+<h3 style="margin-top:20px">Jornadas registradas</h3>
 
 ${es.length?es.map(e=>`
 
@@ -980,22 +997,21 @@ ${es.length?es.map(e=>`
 <div class="entryHead">
 
 <div>
+
 <b>📅 ${prettyDate(e.date)}</b>
 
 <div class="infoLine">
-Entrada: ${e.start||"--"}<br>
-Salida: ${e.end||"--"}<br>
+Entrada: ${escapeHTML(e.start||"--")}<br>
+Salida: ${escapeHTML(e.end||"--")}<br>
 Horas: ${fmt(e.hours)}<br>
-Dirección: ${e.project||"Sin dirección"}<br>
-Parqueo: ${e.parking||"No"}
-${e.note?`<br>Nota: ${e.note}`:""}
+Dirección: ${escapeHTML(e.project||"Sin dirección")}<br>
+Parqueo: ${escapeHTML(e.parking||"No")}
+${e.note?`<br>Nota: ${escapeHTML(e.note)}`:""}
 </div>
 
 </div>
 
-<span class="hours">
-${fmt(e.hours)} h
-</span>
+<span class="hours">${fmt(e.hours)} h</span>
 
 </div>
 
@@ -1008,9 +1024,7 @@ onclick="editHistoricalDay('${w.id}','${e.date}')">
 
 `).join(""):
 
-`<p class="muted">
-No tiene horas registradas.
-</p>`}
+`<p class="muted">No tiene horas registradas.</p>`}
 
 `;
 
@@ -1034,14 +1048,15 @@ $("weekPicker").value=date;
 renderWeek();
 
 let index=Math.round(
-(parseDate(date)-parseDate(currentWeek))/
-86400000
+(parseDate(date)-parseDate(currentWeek))/86400000
 );
 
 setTimeout(()=>{
 let body=$("dayBody"+index);
+
 if(body){
 body.classList.remove("hidden");
+
 body.scrollIntoView({
 behavior:"smooth",
 block:"center"
@@ -1079,10 +1094,9 @@ let total=es.reduce(
 $("reportContent").innerHTML=`
 
 <div class="profile">
-<b style="font-size:20px">${w.name}</b><br>
-Puesto: ${w.role||"No especificado"}<br>
-Semana: ${prettyDate(monday)}
-— ${prettyDate(sunday)}
+<b style="font-size:20px">${escapeHTML(w.name)}</b><br>
+Puesto: ${escapeHTML(w.role||"No especificado")}<br>
+Semana: ${prettyDate(monday)} — ${prettyDate(sunday)}
 </div>
 
 <div class="totalBox">
@@ -1136,7 +1150,6 @@ currentReportMonday=monday;
 let rows=DAY_NAMES.map((day,index)=>{
 
 let date=addDays(monday,index);
-
 let e=es.find(x=>x.date===date);
 
 return`
@@ -1146,20 +1159,22 @@ return`
 <div class="entryHead">
 
 <div>
+
 <b>${day} · ${prettyDate(date)}</b>
 
 <div class="infoLine">
 
 ${e?
-`Entrada: ${e.start||"--"}<br>
-Salida: ${e.end||"--"}<br>
-Dirección: ${e.project||"Sin dirección"}<br>
-Parqueo: ${e.parking||"No"}
-${e.note?`<br>Nota: ${e.note}`:""}`
+`Entrada: ${escapeHTML(e.start||"--")}<br>
+Salida: ${escapeHTML(e.end||"--")}<br>
+Dirección: ${escapeHTML(e.project||"Sin dirección")}<br>
+Parqueo: ${escapeHTML(e.parking||"No")}
+${e.note?`<br>Nota: ${escapeHTML(e.note)}`:""}`
 
 :"Sin horas registradas"}
 
 </div>
+
 </div>
 
 <span class="hours">
@@ -1167,6 +1182,7 @@ ${e?fmt(e.hours)+" h":"—"}
 </span>
 
 </div>
+
 </div>
 
 `;
@@ -1176,14 +1192,16 @@ ${e?fmt(e.hours)+" h":"—"}
 $("reportModalContent").innerHTML=`
 
 <div class="profile">
-<b style="font-size:22px">${w.name}</b><br>
-👷 ${w.role||"Sin puesto"}<br>
-📞 ${w.phone||"Sin teléfono"}<br>
-✉️ ${w.email||"Sin correo"}<br>
-📍 ${w.address||"Sin dirección"}<br><br>
+
+<b style="font-size:22px">${escapeHTML(w.name)}</b><br>
+👷 ${escapeHTML(w.role||"Sin puesto")}<br>
+📞 ${escapeHTML(w.phone||"Sin teléfono")}<br>
+✉️ ${escapeHTML(w.email||"Sin correo")}<br>
+📍 ${escapeHTML(w.address||"Sin dirección")}<br><br>
+
 <b>Semana:</b>
-${prettyDate(monday)}
-— ${prettyDate(sunday)}
+${prettyDate(monday)} — ${prettyDate(sunday)}
+
 </div>
 
 ${rows}
@@ -1224,13 +1242,19 @@ let e=es.find(x=>x.date===date);
 return`
 
 <tr>
-<td><b>${day}</b><br>${prettyDate(date)}</td>
-<td>${e?.start||"--"}</td>
-<td>${e?.end||"--"}</td>
+
+<td>
+<b>${day}</b><br>
+${prettyDate(date)}
+</td>
+
+<td>${escapeHTML(e?.start||"--")}</td>
+<td>${escapeHTML(e?.end||"--")}</td>
 <td>${e?fmt(e.hours):"--"}</td>
-<td>${e?.project||""}</td>
-<td>${e?.parking||""}</td>
-<td>${e?.note||""}</td>
+<td>${escapeHTML(e?.project||"")}</td>
+<td>${escapeHTML(e?.parking||"")}</td>
+<td>${escapeHTML(e?.note||"")}</td>
+
 </tr>
 
 `;
@@ -1240,146 +1264,194 @@ return`
 return`
 
 <!doctype html>
-<html>
+<html lang="es">
+
 <head>
 
 <meta charset="utf-8">
 
-<title>
-Informe semanal - ${w.name}
-</title>
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>Informe semanal - ${escapeHTML(w.name)}</title>
 
 <style>
 
-@page{margin:14mm}
+*{box-sizing:border-box}
 
 body{
 font-family:Arial,sans-serif;
 color:#142844;
 margin:0;
-padding-bottom:30px
+background:white;
 }
 
-.back{
+.actions{
 position:sticky;
 top:0;
-z-index:10;
-display:block;
-width:100%;
-border:0;
+z-index:100;
+display:flex;
+gap:8px;
+padding:12px;
 background:#075bd8;
-color:white;
-font-size:17px;
+}
+
+.actions button{
+flex:1;
+border:0;
+border-radius:10px;
+padding:13px 7px;
+font-size:14px;
 font-weight:bold;
-padding:15px;
-margin-bottom:20px
+background:white;
+color:#075bd8;
+}
+
+.document{
+padding:18px 12px 35px;
 }
 
 .head{
 display:flex;
 align-items:center;
-gap:15px;
+gap:14px;
 border-bottom:3px solid #075bd8;
 padding-bottom:13px;
-margin-bottom:18px
+margin-bottom:18px;
 }
 
 .logo{
-width:70px;
-height:70px;
+width:58px;
+height:58px;
 object-fit:contain;
-border-radius:14px
+border-radius:12px;
 }
 
 h1{
 margin:0;
 color:#075bd8;
-font-size:25px
+font-size:23px;
 }
 
 .sub{
 color:#64758b;
-margin-top:4px
+font-size:13px;
+margin-top:4px;
 }
 
 .profile{
-margin:18px 0;
-line-height:1.7;
+margin:16px 0;
+line-height:1.65;
 background:#f5f8fc;
 padding:12px;
-border-radius:10px
+border-radius:10px;
+font-size:14px;
 }
 
 .week{
-font-size:16px;
+font-size:14px;
 font-weight:bold;
-margin:15px 0
+margin:15px 0;
+}
+
+.tableWrap{
+width:100%;
+overflow-x:auto;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-font-size:10px
+font-size:9px;
 }
 
 th{
 background:#eaf3ff;
-text-align:left
+text-align:left;
 }
 
 th,td{
 border:1px solid #ccd8e6;
-padding:7px
+padding:6px;
+vertical-align:top;
 }
 
 .total{
 margin-top:18px;
-font-size:21px;
+font-size:20px;
 font-weight:bold;
-color:#075bd8
+color:#075bd8;
 }
 
 .foot{
-margin-top:30px;
+margin-top:28px;
 border-top:1px solid #d8e2ee;
 padding-top:10px;
 color:#68788c;
 font-size:10px;
-text-align:center
+text-align:center;
 }
 
 @media print{
 
-.back{
-display:none!important
+@page{
+size:auto;
+margin:12mm;
 }
 
-.head,.profile,th{
+.actions{
+display:none!important;
+}
+
+.document{
+padding:0;
+}
+
+.tableWrap{
+overflow:visible;
+}
+
+.head,
+.profile,
+th{
 -webkit-print-color-adjust:exact;
-print-color-adjust:exact
+print-color-adjust:exact;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
 
-<button class="back"
-onclick="window.close()">
+<div class="actions">
+
+<button onclick="window.print()">
+📤 Compartir / Guardar PDF
+</button>
+
+<button onclick="window.close()">
 ← Volver a Control de Horas
 </button>
+
+</div>
+
+<div class="document">
 
 <div class="head">
 
 <img class="logo" src="icon.png">
 
 <div>
+
 <h1>CONTROL DE HORAS</h1>
+
 <div class="sub">
 Informe semanal del trabajador
 </div>
+
 </div>
 
 </div>
@@ -1387,33 +1459,37 @@ Informe semanal del trabajador
 <div class="profile">
 
 <b>Trabajador:</b>
-${w.name}<br>
+${escapeHTML(w.name)}<br>
 
 <b>Puesto:</b>
-${w.role||"No especificado"}<br>
+${escapeHTML(w.role||"No especificado")}<br>
 
 <b>Teléfono:</b>
-${w.phone||"No especificado"}<br>
+${escapeHTML(w.phone||"No especificado")}<br>
 
 <b>Correo:</b>
-${w.email||"No especificado"}<br>
+${escapeHTML(w.email||"No especificado")}<br>
 
 <b>Horario habitual:</b>
-${w.defaultStart||"--"}
+${escapeHTML(w.defaultStart||"--")}
 -
-${w.defaultEnd||"--"}<br>
+${escapeHTML(w.defaultEnd||"--")}<br>
 
 <b>Dirección / Proyecto:</b>
-${w.address||"No especificada"}
+${escapeHTML(w.address||"No especificada")}
 
 </div>
 
 <div class="week">
+
 Semana:
 ${prettyDate(monday)}
 —
 ${prettyDate(sunday)}
+
 </div>
+
+<div class="tableWrap">
 
 <table>
 
@@ -1437,9 +1513,10 @@ ${rows}
 
 </table>
 
+</div>
+
 <div class="total">
-Total semanal:
-${fmt(total)} horas
+Total semanal: ${fmt(total)} horas
 </div>
 
 <div class="foot">
@@ -1448,6 +1525,8 @@ ${fmt(total)} horas
 style="width:28px;height:28px;object-fit:contain;vertical-align:middle;margin-right:7px">
 
 Control de Horas · Wilmer Vargas
+
+</div>
 
 </div>
 
@@ -1462,27 +1541,20 @@ function openPrintable(w,monday){
 let win=window.open("","_blank");
 
 if(!win){
-alert(
-"Permite las ventanas emergentes para abrir el informe."
-);
+alert("No se pudo abrir el informe. Revisa que Safari permita ventanas emergentes.");
 return;
 }
 
 win.document.open();
-win.document.write(
-reportHTML(w,monday)
-);
+win.document.write(reportHTML(w,monday));
 win.document.close();
 
-/*
-El informe NO imprime automáticamente.
-Primero aparece en pantalla con el botón Volver.
-Desde ahí el usuario puede usar Imprimir/Compartir.
-*/
-
+try{
+win.focus();
+}catch(e){}
 }
 
-$("printPDF").onclick=()=>{
+$("openShareReport").onclick=()=>{
 
 let w=db.workers.find(
 x=>x.id===currentReportWorker
@@ -1494,7 +1566,6 @@ openPrintable(
 w,
 currentReportMonday
 );
-
 };
 
 $("export").onclick=()=>{
@@ -1507,20 +1578,20 @@ let blob=new Blob(
 let a=document.createElement("a");
 
 a.href=URL.createObjectURL(blob);
-
-a.download=
-"respaldo-control-horas.json";
+a.download="respaldo-control-horas.json";
 
 a.click();
+
+setTimeout(()=>{
+URL.revokeObjectURL(a.href);
+},1000);
 };
 
 function nav(page){
 
 document
 .querySelectorAll(".page")
-.forEach(x=>
-x.classList.add("hidden")
-);
+.forEach(x=>x.classList.add("hidden"));
 
 $(page).classList.remove("hidden");
 
@@ -1549,7 +1620,6 @@ renderWeek();
 if(page==="reportes"){
 renderReport();
 }
-
 }
 
 document
@@ -1560,11 +1630,8 @@ b.onclick=()=>nav(b.dataset.page);
 
 function renderAll(){
 
-let selectedWorker=
-$("worker").value;
-
-let selectedReport=
-$("reportWorker").value;
+let selectedWorker=$("worker").value;
+let selectedReport=$("reportWorker").value;
 
 renderWorkers();
 
@@ -1585,7 +1652,6 @@ $("reportWorker").value=selectedReport;
 renderWeek();
 renderStats();
 renderReport();
-
 }
 
 persist();
