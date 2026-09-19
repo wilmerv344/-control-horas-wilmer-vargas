@@ -10,57 +10,102 @@
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="manifest" href="manifest.json">
 <title>Control de Horas</title>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f1f6fc;color:#10274a}
-.wrap{max-width:760px;margin:auto;padding-bottom:90px}
-.hero{background:linear-gradient(145deg,#053c82,#087cf4);color:#fff;padding:25px 18px 30px;border-radius:0 0 30px 30px}
+.wrap{max-width:760px;margin:auto;padding-bottom:100px}
+.hero{background:linear-gradient(145deg,#053c82,#087cf4);color:white;padding:24px 18px 31px;border-radius:0 0 30px 30px}
 .brand{display:flex;align-items:center;gap:13px}
-.brand img{width:64px;height:64px;border-radius:18px;object-fit:cover;border:2px solid #77c5ff}
-.brand h1{margin:0;font-size:25px}.brand p{margin:4px 0;color:#d8ebff}
-.hero h2{font-size:27px;margin:22px 0 5px}.hero .sub{margin:0;color:#d8ebff}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;background:#fff;padding:10px;margin:-14px 14px 15px;border-radius:20px;position:relative}
-.tab{border:0;border-radius:14px;padding:13px 3px;font-weight:750;background:#f0f4f9;color:#19385f}
-.tab.active{background:#0877ef;color:#fff}
-.card{background:#fff;margin:14px;border-radius:23px;padding:18px;box-shadow:0 8px 25px #173d6c12}
-.card h3{margin:0 0 5px;font-size:22px}.muted{color:#6a7e99;font-size:14px}
+.brand img{width:64px;height:64px;border-radius:18px;object-fit:cover}
+.brand h1{margin:0;font-size:25px}
+.brand p{margin:4px 0;color:#d8ebff}
+.hero h2{font-size:27px;margin:22px 0 5px}
+.hero .sub{margin:0;color:#d8ebff}
+
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;background:white;padding:10px;margin:-14px 14px 15px;border-radius:20px;position:relative}
+.tab{border:0;border-radius:14px;padding:13px 3px;font-weight:800;background:#f0f4f9;color:#19385f}
+.tab.active{background:#0877ef;color:white}
+
+.card{background:white;margin:14px;border-radius:23px;padding:18px;box-shadow:0 8px 25px #173d6c12}
+.card h3{margin:0 0 5px;font-size:22px}
+.muted{color:#6a7e99;font-size:14px}
+
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:17px}
-.field.full{grid-column:1/-1}
-.field label{display:block;font-size:13px;font-weight:800;margin:0 0 6px}
-.field input,.field select,.field textarea{width:100%;border:1px solid #cbd9e9;background:#f9fbfe;border-radius:13px;padding:13px;font-size:16px;color:#10294d}
-.primary,.green,.secondary,.danger{width:100%;border-radius:14px;font-weight:800;font-size:16px;padding:14px;margin-top:10px}
-.primary{border:0;background:#0873e9;color:#fff}
-.green{border:0;background:#20aa5b;color:#fff}
+.full{grid-column:1/-1}
+.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}
+.field input,.field select,.field textarea{
+width:100%;border:1px solid #cbd9e9;background:#f9fbfe;
+border-radius:13px;padding:13px;font-size:16px;color:#10294d
+}
+
+.primary,.secondary,.green,.danger{
+width:100%;border-radius:14px;font-weight:800;font-size:16px;
+padding:14px;margin-top:10px
+}
+.primary{border:0;background:#0873e9;color:white}
 .secondary{border:1px solid #bfd0e3;background:#f4f8fc;color:#15365e}
-.danger{border:1px solid #f2bcbc;background:#fff3f3;color:#bd2929}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:14px}
-.stat{background:#fff;border-radius:18px;text-align:center;padding:14px 4px}
-.stat b{font-size:24px;display:block}.stat span{font-size:12px;color:#687a92}
+.green{border:0;background:#20aa5b;color:white}
+.danger{border:1px solid #f1bcbc;background:#fff2f2;color:#bb2929}
+
+.weekHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:16px}
+.weekNav{border:0;background:#eaf3ff;color:#075fc7;border-radius:12px;padding:11px 13px;font-size:18px;font-weight:900}
+.weekTitle{text-align:center;font-weight:900;font-size:15px;color:#17375f}
+
+.dayCard{border:1px solid #d8e4f1;border-radius:18px;margin-top:12px;background:#fbfdff;overflow:hidden}
+.dayHead{display:flex;align-items:center;justify-content:space-between;padding:14px;cursor:pointer}
+.dayName{font-size:18px;font-weight:900}
+.dayDate{font-size:13px;color:#687d98;margin-top:3px}
+.dayTotal{background:#e8f2ff;color:#0765ce;border-radius:12px;padding:7px 10px;font-weight:900}
+.dayBody{padding:0 14px 14px}
+.saved{background:#e7f8ee!important;color:#16713e!important}
+
 .workerCard{border:1px solid #dce6f1;border-radius:17px;padding:14px;margin-top:12px;background:#fbfdff}
 .workerCard h4{margin:0;font-size:19px}
 .badge{display:inline-block;background:#e6f2ff;color:#0765ce;padding:5px 9px;border-radius:20px;font-size:12px;font-weight:800;margin-top:5px}
-.workerInfo{color:#637892;font-size:13px;line-height:1.65;margin-top:9px}
-.workerActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.historyBtn,.editBtn,.hoursBtn,.reportBtn{border:0;padding:11px;border-radius:11px;font-weight:800}
+.workerInfo{color:#637892;font-size:13px;line-height:1.7;margin-top:9px}
+.workerActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.historyBtn,.editBtn,.hoursBtn,.reportBtn{border:0;padding:12px 5px;border-radius:11px;font-weight:800}
 .historyBtn{background:#e8f2ff;color:#0864cb}
-.editBtn{background:#fff3d8;color:#8a5b00}
+.editBtn{background:#fff1cf;color:#8a5900}
 .hoursBtn{background:#e7f8ee;color:#16713e}
 .reportBtn{background:#f0eaff;color:#6540a5}
+
 .entry{padding:13px 0;border-top:1px solid #e4ecf5}
 .entryHead{display:flex;justify-content:space-between;gap:10px}
 .hours{background:#e6f2ff;color:#0866cf;padding:6px 9px;border-radius:10px;font-weight:800;height:max-content}
-.infoLine{font-size:13px;color:#687d98;line-height:1.55;margin-top:4px}
+.infoLine{font-size:13px;color:#687d98;line-height:1.6;margin-top:4px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:14px}
+.stat{background:white;border-radius:18px;text-align:center;padding:14px 4px}
+.stat b{font-size:24px;display:block}
+.stat span{font-size:12px;color:#687a92}
+
 .profile{background:#f4f8fd;border-radius:16px;padding:14px;margin-top:13px;line-height:1.7;font-size:14px}
-.totalBox{background:#075bd8;color:#fff;border-radius:18px;padding:18px;margin-top:15px}
+.totalBox{background:#075bd8;color:white;border-radius:18px;padding:18px;margin-top:15px}
 .totalBox b{font-size:30px}
 .hidden{display:none!important}
-.bottom{position:fixed;bottom:0;left:0;right:0;max-width:760px;margin:auto;background:#fffffff2;display:grid;grid-template-columns:repeat(4,1fr);padding:10px 5px calc(10px + env(safe-area-inset-bottom));border-top:1px solid #dce6f1;z-index:20}
-.bottom button{border:0;background:none;color:#526781;font-weight:750;font-size:12px}.bottom button.on{color:#0873e9}
+
+.bottom{
+position:fixed;bottom:0;left:0;right:0;max-width:760px;margin:auto;
+background:#fffffff2;display:grid;grid-template-columns:repeat(4,1fr);
+padding:10px 5px calc(10px + env(safe-area-inset-bottom));
+border-top:1px solid #dce6f1;z-index:20
+}
+.bottom button{border:0;background:none;color:#526781;font-weight:750;font-size:12px}
+.bottom button.on{color:#0873e9}
+
 .modal{position:fixed;inset:0;background:#0c203e88;z-index:50;padding:20px;overflow:auto}
-.modalBox{max-width:700px;margin:25px auto;background:#fff;border-radius:24px;padding:19px}
+.modalBox{max-width:700px;margin:25px auto;background:white;border-radius:24px;padding:19px}
 .modalHead{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .close{border:0;background:#edf3fa;border-radius:50%;width:40px;height:40px;font-size:22px}
-@media(max-width:520px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.stats{grid-template-columns:1fr 1fr}.tabs{font-size:11px}}
+
+@media(max-width:520px){
+.grid{grid-template-columns:1fr}
+.full{grid-column:auto}
+.stats{grid-template-columns:1fr 1fr}
+.tabs{font-size:11px}
+}
 </style>
 </head>
 
@@ -68,7 +113,13 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 <div class="wrap">
 
 <header class="hero">
-<div class="brand"><img src="icon.png"><div><h1>Control de Horas</h1><p>Wilmer Vargas · Administración de personal</p></div></div>
+<div class="brand">
+<img src="icon.png">
+<div>
+<h1>Control de Horas</h1>
+<p>Wilmer Vargas · Administración de personal</p>
+</div>
+</div>
 <h2>¡Hola, Wilmer! 👋</h2>
 <p class="sub">Control profesional de trabajadores y jornadas.</p>
 </header>
@@ -81,22 +132,36 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 </nav>
 
 <section id="registrar" class="page">
+
 <div class="card">
-<h3>📝 Registrar jornada</h3>
-<p class="muted">Selecciona el trabajador y el día del calendario.</p>
-<div class="grid">
+<h3>📅 Horas semanales</h3>
+<p class="muted">Selecciona el trabajador y registra sus horas de lunes a domingo.</p>
 
-<div class="field full"><label>Trabajador</label><select id="worker"></select></div>
-<div class="field"><label>📅 Fecha</label><input id="date" type="date"></div>
-<div class="field"><label>Zona de parqueo</label><select id="parking"><option>No</option><option>Sí</option></select></div>
-<div class="field"><label>Hora de entrada</label><input id="start" type="time" value="08:00"></div>
-<div class="field"><label>Hora de salida</label><input id="end" type="time" value="17:00"></div>
-<div class="field"><label>Horas trabajadas</label><input id="hours" type="number" min="0" step=".25" value="8"></div>
-<div class="field"><label>Dirección / Proyecto</label><input id="project"></div>
-<div class="field full"><label>Notas</label><textarea id="note" rows="3"></textarea></div>
-
+<div class="field" style="margin-top:15px">
+<label>Trabajador</label>
+<select id="worker"></select>
 </div>
-<button class="primary" id="save">💾 Guardar jornada</button>
+
+<div class="weekHeader">
+<button class="weekNav" id="prevWeek">‹</button>
+<div>
+<div class="weekTitle">SEMANA</div>
+<div id="weekRange" class="muted"></div>
+</div>
+<button class="weekNav" id="nextWeek">›</button>
+</div>
+
+<div style="text-align:center;margin-top:10px">
+<input id="weekPicker" type="date" style="border:1px solid #cbd9e9;border-radius:12px;padding:10px;font-size:15px">
+</div>
+
+<div id="weekDays"></div>
+
+<div class="totalBox">
+<div>Total de esta semana</div>
+<b id="selectedWeekTotal">0 horas</b>
+</div>
+
 </div>
 
 <div class="stats">
@@ -106,16 +171,27 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 <div class="stat"><b id="workerStat">0</b><span>Trabajadores</span></div>
 </div>
 
-<div class="card"><h3>🕐 Últimos registros</h3><div id="recent"></div></div>
 </section>
 
 <section id="reportes" class="page hidden">
 <div class="card">
 <h3>📊 Informes</h3>
-<p class="muted">Consulta las horas de cada trabajador.</p>
-<div class="field"><label>Trabajador</label><select id="reportWorker"></select></div>
+<p class="muted">Selecciona un trabajador y una semana.</p>
+
+<div class="grid">
+<div class="field">
+<label>Trabajador</label>
+<select id="reportWorker"></select>
+</div>
+<div class="field">
+<label>Semana</label>
+<input id="reportWeek" type="date">
+</div>
+</div>
+
 <div id="reportContent"></div>
-<button class="green" id="pdfShare">📄 Ver informe / Compartir PDF</button>
+
+<button class="green" id="pdfShare">📄 Ver informe semanal / PDF</button>
 </div>
 </section>
 
@@ -123,29 +199,73 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 
 <div class="card">
 <h3>👥 Nuevo trabajador</h3>
+
 <div class="grid">
-<div class="field full"><label>Nombre completo</label><input id="newName"></div>
-<div class="field"><label>Correo electrónico</label><input id="newEmail" type="email"></div>
-<div class="field"><label>Número de teléfono</label><input id="newPhone" type="tel"></div>
-<div class="field"><label>Puesto / Trabajo</label><select id="newRole"><option>Ayudante</option><option>Ayudante avanzado</option><option>Electricista</option></select></div>
-<div class="field"><label>Entrada habitual</label><input id="newStart" type="time" value="08:00"></div>
-<div class="field"><label>Salida habitual</label><input id="newEnd" type="time" value="17:00"></div>
-<div class="field"><label>Zona de parqueo</label><select id="newParking"><option>No</option><option>Sí</option></select></div>
-<div class="field full"><label>Dirección / Proyecto</label><input id="newAddress"></div>
+
+<div class="field full">
+<label>Nombre completo</label>
+<input id="newName">
 </div>
+
+<div class="field">
+<label>Correo electrónico</label>
+<input id="newEmail" type="email">
+</div>
+
+<div class="field">
+<label>Número de teléfono</label>
+<input id="newPhone" type="tel">
+</div>
+
+<div class="field">
+<label>Puesto / Trabajo</label>
+<select id="newRole">
+<option>Ayudante</option>
+<option>Ayudante avanzado</option>
+<option>Electricista</option>
+</select>
+</div>
+
+<div class="field">
+<label>Entrada habitual</label>
+<input id="newStart" type="time" value="08:00">
+</div>
+
+<div class="field">
+<label>Salida habitual</label>
+<input id="newEnd" type="time" value="17:00">
+</div>
+
+<div class="field">
+<label>Zona de parqueo</label>
+<select id="newParking">
+<option>No</option>
+<option>Sí</option>
+</select>
+</div>
+
+<div class="field full">
+<label>Dirección / Proyecto</label>
+<input id="newAddress">
+</div>
+
+</div>
+
 <button class="primary" id="addWorker">+ Guardar trabajador</button>
 </div>
 
 <div class="card">
 <h3>📁 Expedientes</h3>
-<p class="muted">Horas, historial, información e informes.</p>
+<p class="muted">Cada trabajador conserva sus datos y su historial.</p>
 <div id="workersList"></div>
 </div>
+
 </section>
 
 <section id="config" class="page hidden">
 <div class="card">
 <h3>⚙️ Configuración</h3>
+<p class="muted">Crea una copia de seguridad de trabajadores y horas.</p>
 <button class="primary" id="export">💾 Exportar respaldo</button>
 </div>
 </section>
@@ -159,57 +279,96 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 
 </div>
 
-<div id="modal" class="modal hidden">
+<div id="historyModal" class="modal hidden">
 <div class="modalBox">
-<div class="modalHead"><h3>📅 Calendario / Historial</h3><button class="close" onclick="closeModal()">×</button></div>
-<div id="modalContent"></div>
-<button class="secondary" onclick="closeModal()">✕ Cerrar / Volver</button>
+<div class="modalHead">
+<h3>📅 Historial</h3>
+<button class="close" onclick="closeHistory()">×</button>
+</div>
+<div id="historyContent"></div>
+<button class="secondary" onclick="closeHistory()">✕ Cerrar / Volver</button>
 </div>
 </div>
 
 <div id="editModal" class="modal hidden">
 <div class="modalBox">
-<div class="modalHead"><h3>✏️ Editar información</h3><button class="close" onclick="closeEdit()">×</button></div>
-<input id="editId" type="hidden">
-<div class="grid">
-<div class="field full"><label>Nombre completo</label><input id="editName"></div>
-<div class="field"><label>Correo</label><input id="editEmail" type="email"></div>
-<div class="field"><label>Teléfono</label><input id="editPhone" type="tel"></div>
-<div class="field"><label>Puesto</label><select id="editRole"><option>Ayudante</option><option>Ayudante avanzado</option><option>Electricista</option></select></div>
-<div class="field"><label>Entrada habitual</label><input id="editStart" type="time"></div>
-<div class="field"><label>Salida habitual</label><input id="editEnd" type="time"></div>
-<div class="field"><label>Parqueo</label><select id="editParking"><option>No</option><option>Sí</option></select></div>
-<div class="field full"><label>Dirección / Proyecto</label><input id="editAddress"></div>
-</div>
-<button class="primary" id="saveEdit">💾 Guardar cambios</button>
-<button class="danger" id="deleteWorker">🗑️ Eliminar trabajador</button>
-</div>
+
+<div class="modalHead">
+<h3>✏️ Editar trabajador</h3>
+<button class="close" onclick="closeEdit()">×</button>
 </div>
 
-<div id="entryModal" class="modal hidden">
-<div class="modalBox">
-<div class="modalHead"><h3>🕐 Editar jornada</h3><button class="close" onclick="closeEntryEdit()">×</button></div>
-<input id="entryId" type="hidden">
+<input id="editId" type="hidden">
+
 <div class="grid">
-<div class="field"><label>Fecha</label><input id="entryDate" type="date"></div>
-<div class="field"><label>Parqueo</label><select id="entryParking"><option>No</option><option>Sí</option></select></div>
-<div class="field"><label>Entrada</label><input id="entryStart" type="time"></div>
-<div class="field"><label>Salida</label><input id="entryEnd" type="time"></div>
-<div class="field"><label>Horas</label><input id="entryHours" type="number" step=".25"></div>
-<div class="field"><label>Dirección</label><input id="entryProject"></div>
-<div class="field full"><label>Notas</label><textarea id="entryNote"></textarea></div>
+
+<div class="field full">
+<label>Nombre completo</label>
+<input id="editName">
 </div>
-<button class="primary" id="saveEntryEdit">💾 Guardar cambios</button>
-<button class="danger" id="deleteEntry">🗑️ Eliminar esta jornada</button>
+
+<div class="field">
+<label>Correo</label>
+<input id="editEmail" type="email">
+</div>
+
+<div class="field">
+<label>Teléfono</label>
+<input id="editPhone" type="tel">
+</div>
+
+<div class="field">
+<label>Puesto</label>
+<select id="editRole">
+<option>Ayudante</option>
+<option>Ayudante avanzado</option>
+<option>Electricista</option>
+</select>
+</div>
+
+<div class="field">
+<label>Entrada habitual</label>
+<input id="editStart" type="time">
+</div>
+
+<div class="field">
+<label>Salida habitual</label>
+<input id="editEnd" type="time">
+</div>
+
+<div class="field">
+<label>Parqueo</label>
+<select id="editParking">
+<option>No</option>
+<option>Sí</option>
+</select>
+</div>
+
+<div class="field full">
+<label>Dirección / Proyecto</label>
+<input id="editAddress">
+</div>
+
+</div>
+
+<button class="primary" id="saveEdit">💾 Guardar cambios</button>
+<button class="danger" id="deleteWorker">🗑️ Eliminar trabajador</button>
+
 </div>
 </div>
 
 <div id="reportModal" class="modal hidden">
 <div class="modalBox">
-<div class="modalHead"><h3>📄 Informe del trabajador</h3><button class="close" onclick="closeReport()">×</button></div>
+<div class="modalHead">
+<h3>📄 Informe semanal</h3>
+<button class="close" onclick="closeReport()">×</button>
+</div>
+
 <div id="reportModalContent"></div>
-<button class="green" id="reportPrintBtn">📲 Compartir / Guardar como PDF</button>
+
+<button class="green" id="printPDF">📲 Abrir para compartir / guardar PDF</button>
 <button class="secondary" onclick="closeReport()">✕ Cerrar / Volver</button>
+
 </div>
 </div>
 
@@ -217,23 +376,63 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 const KEY="controlHorasDataV2";
 const $=id=>document.getElementById(id);
 
-let db=JSON.parse(localStorage.getItem(KEY)||"null")||{workers:[],entries:[]};
+let db=JSON.parse(localStorage.getItem(KEY)||"null")||{
+workers:[],
+entries:[]
+};
+
 if(!Array.isArray(db.workers))db.workers=[];
 if(!Array.isArray(db.entries))db.entries=[];
 
 db.workers=db.workers.map((w,i)=>{
 if(typeof w==="string"){
-return{id:"w"+Date.now()+i,name:w,email:"",phone:"",role:"",defaultStart:"08:00",defaultEnd:"17:00",parking:"No",address:""};
+return{
+id:"w"+Date.now()+i,
+name:w,
+email:"",
+phone:"",
+role:"",
+defaultStart:"08:00",
+defaultEnd:"17:00",
+parking:"No",
+address:""
+};
 }
+
 if(!w.id)w.id="w"+Date.now()+i;
 return w;
 });
 
-function persist(){localStorage.setItem(KEY,JSON.stringify(db))}
+db.entries=db.entries.map((e,i)=>{
+if(!e.id)e.id="e"+Date.now()+i;
+return e;
+});
+
+function persist(){
+localStorage.setItem(KEY,JSON.stringify(db));
+}
+
+function pad(n){
+return String(n).padStart(2,"0");
+}
+
+function localISO(d){
+return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+}
 
 function today(){
-let d=new Date();
-return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+return localISO(new Date());
+}
+
+function parseDate(s){
+let [y,m,d]=s.split("-").map(Number);
+return new Date(y,m-1,d,12,0,0);
+}
+
+function prettyDate(s){
+if(!s)return"";
+let [y,m,d]=s.split("-");
+return m+"/"+d+"/"+y;
 }
 
 function fmt(n){
@@ -241,35 +440,83 @@ n=Number(n||0);
 return Number.isInteger(n)?String(n):n.toFixed(2);
 }
 
-function prettyDate(s){
-if(!s)return"";
-let[y,m,d]=s.split("-");
-return m+"/"+d+"/"+y;
+function mondayOf(dateString){
+let d=parseDate(dateString);
+let day=d.getDay();
+let diff=day===0?-6:1-day;
+d.setDate(d.getDate()+diff);
+return localISO(d);
 }
 
-function weekStart(date){
-let x=new Date(date+"T12:00:00");
-let day=(x.getDay()+6)%7;
-x.setDate(x.getDate()-day);
-return x.toISOString().slice(0,10);
+function addDays(dateString,n){
+let d=parseDate(dateString);
+d.setDate(d.getDate()+n);
+return localISO(d);
 }
 
-function getWorkerEntries(w){
-return db.entries.filter(e=>e.workerId===w.id||(!e.workerId&&e.worker===w.name)).sort((a,b)=>b.date.localeCompare(a.date));
+function calcHours(start,end){
+if(!start||!end)return 0;
+
+let [sh,sm]=start.split(":").map(Number);
+let [eh,em]=end.split(":").map(Number);
+
+let a=sh*60+sm;
+let b=eh*60+em;
+
+if(b<a)b+=24*60;
+
+let total=(b-a)/60;
+return Math.round(total*4)/4;
 }
 
-$("date").value=today();
+function workerEntries(w){
+return db.entries
+.filter(e=>e.workerId===w.id||(!e.workerId&&e.worker===w.name))
+.sort((a,b)=>b.date.localeCompare(a.date));
+}
+
+function entryForDay(w,date){
+return db.entries.find(e=>
+(e.workerId===w.id||(!e.workerId&&e.worker===w.name))
+&&e.date===date
+);
+}
+
+let currentWeek=mondayOf(today());
+let currentReportWorker=null;
+let currentReportMonday=null;
+
+$("weekPicker").value=today();
+$("reportWeek").value=today();
+
+const DAY_NAMES=[
+"Lunes",
+"Martes",
+"Miércoles",
+"Jueves",
+"Viernes",
+"Sábado",
+"Domingo"
+];
 
 function renderWorkers(){
-let options=db.workers.map(w=>`<option value="${w.id}">${w.name}</option>`).join("");
+
+let options=db.workers.map(w=>
+`<option value="${w.id}">${w.name}</option>`
+).join("");
+
 $("worker").innerHTML=options;
 $("reportWorker").innerHTML=options;
 $("workerStat").textContent=db.workers.length;
 
-$("workersList").innerHTML=db.workers.length?db.workers.map(w=>`
+$("workersList").innerHTML=db.workers.length
+?db.workers.map(w=>`
+
 <div class="workerCard">
+
 <h4>${w.name}</h4>
 <span class="badge">${w.role||"Sin puesto"}</span>
+
 <div class="workerInfo">
 📞 ${w.phone||"Sin teléfono"}<br>
 ✉️ ${w.email||"Sin correo"}<br>
@@ -279,72 +526,316 @@ $("workersList").innerHTML=db.workers.length?db.workers.map(w=>`
 </div>
 
 <div class="workerActions">
-<button class="hoursBtn" onclick="addHoursFor('${w.id}')">🕐 Agregar horas</button>
-<button class="historyBtn" onclick="openHistory('${w.id}')">📅 Calendario / Historial</button>
-<button class="editBtn" onclick="openEdit('${w.id}')">✏️ Editar información</button>
-<button class="reportBtn" onclick="openReport('${w.id}')">📄 Reporte</button>
+
+<button class="hoursBtn"
+onclick="openWorkerWeek('${w.id}')">
+🕐 Agregar horas
+</button>
+
+<button class="historyBtn"
+onclick="openHistory('${w.id}')">
+📅 Historial
+</button>
+
+<button class="editBtn"
+onclick="openEdit('${w.id}')">
+✏️ Editar información
+</button>
+
+<button class="reportBtn"
+onclick="openWorkerReport('${w.id}')">
+📄 Reporte
+</button>
+
 </div>
 </div>
-`).join(""):`<p class="muted">No hay trabajadores registrados.</p>`;
+
+`).join("")
+:`<p class="muted">Todavía no hay trabajadores.</p>`;
 }
 
-function renderRecent(){
-let es=[...db.entries].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,6);
-$("recent").innerHTML=es.length?es.map(e=>`
-<div class="entry">
-<div class="entryHead">
-<div><b>${e.worker}</b>
-<div class="infoLine">
-📅 ${prettyDate(e.date)}<br>
-🕐 ${e.start||"--"} - ${e.end||"--"}<br>
-📍 ${e.project||"Sin dirección"}<br>
-🅿️ ${e.parking||"No"}
+function renderWeek(){
+
+let w=db.workers.find(x=>x.id===$("worker").value);
+
+if(!w){
+$("weekDays").innerHTML=
+`<p class="muted">Primero agrega un trabajador.</p>`;
+$("selectedWeekTotal").textContent="0 horas";
+return;
+}
+
+let sunday=addDays(currentWeek,6);
+
+$("weekRange").textContent=
+prettyDate(currentWeek)+" — "+prettyDate(sunday);
+
+let weekTotal=0;
+
+$("weekDays").innerHTML=DAY_NAMES.map((day,index)=>{
+
+let date=addDays(currentWeek,index);
+let e=entryForDay(w,date);
+
+let start=e?.start||w.defaultStart||"08:00";
+let end=e?.end||w.defaultEnd||"17:00";
+let hours=e?Number(e.hours||0):0;
+let parking=e?.parking||w.parking||"No";
+let project=e?.project||w.address||"";
+let note=e?.note||"";
+
+weekTotal+=hours;
+
+return`
+
+<div class="dayCard">
+
+<div class="dayHead" onclick="toggleDay(${index})">
+
+<div>
+<div class="dayName">${day}</div>
+<div class="dayDate">📅 ${prettyDate(date)}</div>
+</div>
+
+<div id="badge${index}"
+class="dayTotal ${e?"saved":""}">
+${e?"✓ "+fmt(hours)+" h":"Agregar"}
+</div>
+
+</div>
+
+<div id="dayBody${index}"
+class="dayBody ${e?"":"hidden"}">
+
+<div class="grid">
+
+<div class="field">
+<label>Hora de entrada</label>
+<input id="start${index}"
+type="time"
+value="${start}"
+onchange="autoHours(${index})">
+</div>
+
+<div class="field">
+<label>Hora de salida</label>
+<input id="end${index}"
+type="time"
+value="${end}"
+onchange="autoHours(${index})">
+</div>
+
+<div class="field">
+<label>Horas trabajadas</label>
+<input id="hours${index}"
+type="number"
+step=".25"
+min="0"
+value="${e?fmt(hours):fmt(calcHours(start,end))}">
+</div>
+
+<div class="field">
+<label>Zona de parqueo</label>
+<select id="parking${index}">
+<option ${parking==="No"?"selected":""}>No</option>
+<option ${parking==="Sí"?"selected":""}>Sí</option>
+</select>
+</div>
+
+<div class="field full">
+<label>Dirección / Proyecto</label>
+<input id="project${index}"
+value="${escapeAttr(project)}">
+</div>
+
+<div class="field full">
+<label>Notas</label>
+<textarea id="note${index}"
+rows="2">${escapeHTML(note)}</textarea>
+</div>
+
+</div>
+
+<button class="primary"
+onclick="saveDay(${index})">
+💾 Guardar ${day}
+</button>
+
+${e?`
+<button class="danger"
+onclick="deleteDay(${index})">
+🗑️ Eliminar horas de ${day}
+</button>
+`:""}
+
 </div>
 </div>
-<span class="hours">${fmt(e.hours)} h</span>
-</div>
-</div>
-`).join(""):`<p class="muted">No hay registros.</p>`;
+
+`;
+
+}).join("");
+
+$("selectedWeekTotal").textContent=
+fmt(weekTotal)+" horas";
+}
+
+function escapeHTML(value){
+return String(value||"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;");
+}
+
+function escapeAttr(value){
+return escapeHTML(value).replaceAll("'","&#39;");
+}
+
+function toggleDay(index){
+$("dayBody"+index).classList.toggle("hidden");
+}
+
+function autoHours(index){
+let start=$("start"+index).value;
+let end=$("end"+index).value;
+$("hours"+index).value=fmt(calcHours(start,end));
+}
+
+function saveDay(index){
+
+let w=db.workers.find(x=>x.id===$("worker").value);
+
+if(!w){
+alert("Selecciona un trabajador.");
+return;
+}
+
+let date=addDays(currentWeek,index);
+
+let existing=entryForDay(w,date);
+
+let data={
+workerId:w.id,
+worker:w.name,
+date:date,
+start:$("start"+index).value,
+end:$("end"+index).value,
+hours:Number($("hours"+index).value||0),
+parking:$("parking"+index).value,
+project:$("project"+index).value.trim(),
+note:$("note"+index).value.trim()
+};
+
+if(existing){
+Object.assign(existing,data);
+}else{
+db.entries.push({
+id:"e"+Date.now(),
+...data
+});
+}
+
+persist();
+renderAll();
+
+alert("✅ "+DAY_NAMES[index]+" guardado para "+w.name);
+}
+
+function deleteDay(index){
+
+let w=db.workers.find(x=>x.id===$("worker").value);
+if(!w)return;
+
+let date=addDays(currentWeek,index);
+
+let e=entryForDay(w,date);
+if(!e)return;
+
+if(!confirm(
+"¿Eliminar las horas de "+DAY_NAMES[index]+
+" "+prettyDate(date)+"?"
+))return;
+
+db.entries=db.entries.filter(x=>x.id!==e.id);
+
+persist();
+renderAll();
+}
+
+$("prevWeek").onclick=()=>{
+currentWeek=addDays(currentWeek,-7);
+$("weekPicker").value=currentWeek;
+renderWeek();
+};
+
+$("nextWeek").onclick=()=>{
+currentWeek=addDays(currentWeek,7);
+$("weekPicker").value=currentWeek;
+renderWeek();
+};
+
+$("weekPicker").onchange=()=>{
+if(!$("weekPicker").value)return;
+currentWeek=mondayOf($("weekPicker").value);
+renderWeek();
+};
+
+$("worker").onchange=renderWeek;
+
+function openWorkerWeek(id){
+
+nav("registrar");
+
+$("worker").value=id;
+currentWeek=mondayOf(today());
+$("weekPicker").value=today();
+
+renderWeek();
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 }
 
 function renderStats(){
+
 let t=today();
-let ws=weekStart(t);
+let week=mondayOf(t);
+let end=addDays(week,6);
 let month=t.slice(0,7);
 
-$("todayStat").textContent=fmt(db.entries.filter(e=>e.date===t).reduce((a,e)=>a+Number(e.hours||0),0));
-$("weekStat").textContent=fmt(db.entries.filter(e=>e.date>=ws&&e.date<=t).reduce((a,e)=>a+Number(e.hours||0),0));
-$("monthStat").textContent=fmt(db.entries.filter(e=>e.date&&e.date.startsWith(month)).reduce((a,e)=>a+Number(e.hours||0),0));
-}
+$("todayStat").textContent=fmt(
+db.entries
+.filter(e=>e.date===t)
+.reduce((a,e)=>a+Number(e.hours||0),0)
+);
 
-function renderReport(){
-let w=db.workers.find(x=>x.id===$("reportWorker").value);
-if(!w){$("reportContent").innerHTML="<p class='muted'>Agrega un trabajador.</p>";return;}
+$("weekStat").textContent=fmt(
+db.entries
+.filter(e=>e.date>=week&&e.date<=end)
+.reduce((a,e)=>a+Number(e.hours||0),0)
+);
 
-let es=getWorkerEntries(w);
-let total=es.reduce((a,e)=>a+Number(e.hours||0),0);
-
-$("reportContent").innerHTML=`
-<div class="profile">
-<b>${w.name}</b><br>
-Puesto: ${w.role||"No especificado"}<br>
-Teléfono: ${w.phone||"No especificado"}<br>
-Correo: ${w.email||"No especificado"}
-</div>
-<div class="totalBox">
-<div>Total registrado</div>
-<b>${fmt(total)} horas</b>
-<div>${es.length} jornadas</div>
-</div>`;
+$("monthStat").textContent=fmt(
+db.entries
+.filter(e=>e.date&&e.date.startsWith(month))
+.reduce((a,e)=>a+Number(e.hours||0),0)
+);
 }
 
 $("addWorker").onclick=()=>{
+
 let name=$("newName").value.trim();
-if(!name)return alert("Escribe el nombre.");
+
+if(!name){
+alert("Escribe el nombre del trabajador.");
+return;
+}
 
 db.workers.push({
 id:"w"+Date.now(),
-name,
+name:name,
 email:$("newEmail").value.trim(),
 phone:$("newPhone").value.trim(),
 role:$("newRole").value,
@@ -355,112 +846,19 @@ address:$("newAddress").value.trim()
 });
 
 persist();
-render();
 
-["newName","newEmail","newPhone","newAddress"].forEach(id=>$(id).value="");
+$("newName").value="";
+$("newEmail").value="";
+$("newPhone").value="";
+$("newAddress").value="";
+
+renderAll();
+
 alert("✅ Trabajador guardado.");
 };
 
-function addHoursFor(id){
-let w=db.workers.find(x=>x.id===id);
-if(!w)return;
-
-nav("registrar");
-$("worker").value=w.id;
-$("date").value=today();
-$("start").value=w.defaultStart||"08:00";
-$("end").value=w.defaultEnd||"17:00";
-$("project").value=w.address||"";
-$("parking").value=w.parking||"No";
-$("note").value="";
-window.scrollTo({top:0,behavior:"smooth"});
-}
-
-$("worker").onchange=()=>{
-let w=db.workers.find(x=>x.id===$("worker").value);
-if(!w)return;
-$("start").value=w.defaultStart||"08:00";
-$("end").value=w.defaultEnd||"17:00";
-$("project").value=w.address||"";
-$("parking").value=w.parking||"No";
-};
-
-$("save").onclick=()=>{
-let w=db.workers.find(x=>x.id===$("worker").value);
-if(!w)return alert("Primero agrega un trabajador.");
-
-db.entries.push({
-id:"e"+Date.now(),
-workerId:w.id,
-worker:w.name,
-date:$("date").value,
-start:$("start").value,
-end:$("end").value,
-hours:Number($("hours").value||0),
-project:$("project").value.trim(),
-parking:$("parking").value,
-note:$("note").value.trim()
-});
-
-persist();
-render();
-$("note").value="";
-alert("✅ Jornada guardada para "+w.name);
-};
-
-function openHistory(id){
-let w=db.workers.find(x=>x.id===id);
-if(!w)return;
-
-let es=getWorkerEntries(w);
-let total=es.reduce((a,e)=>a+Number(e.hours||0),0);
-
-$("modalContent").innerHTML=`
-<div class="profile">
-<b style="font-size:22px">${w.name}</b><br>
-👷 ${w.role||"Sin puesto"}<br>
-📍 ${w.address||"Sin dirección"}
-</div>
-
-<div class="totalBox">
-<div>Total acumulado</div>
-<b>${fmt(total)} horas</b>
-<div>${es.length} jornadas</div>
-</div>
-
-<h3 style="margin-top:20px">📅 Jornadas registradas</h3>
-
-${es.length?es.map(e=>`
-<div class="entry">
-<div class="entryHead">
-<div>
-<b>${prettyDate(e.date)}</b>
-<div class="infoLine">
-Entrada: ${e.start||"--"}<br>
-Salida: ${e.end||"--"}<br>
-Dirección: ${e.project||"Sin dirección"}<br>
-Parqueo: ${e.parking||"No"}
-${e.note?`<br>Nota: ${e.note}`:""}
-</div>
-</div>
-<span class="hours">${fmt(e.hours)} h</span>
-</div>
-
-<button class="secondary" onclick="openEntryEdit('${e.id}')">
-✏️ Editar esta jornada
-</button>
-</div>
-`).join(""):"<p class='muted'>No tiene jornadas.</p>"}
-
-<button class="green" onclick="openReport('${w.id}')">📄 Ver informe</button>
-`;
-
-$("modal").classList.remove("hidden");
-}
-
-function closeModal(){$("modal").classList.add("hidden")}
-
 function openEdit(id){
+
 let w=db.workers.find(x=>x.id===id);
 if(!w)return;
 
@@ -477,15 +875,24 @@ $("editAddress").value=w.address||"";
 $("editModal").classList.remove("hidden");
 }
 
-function closeEdit(){$("editModal").classList.add("hidden")}
+function closeEdit(){
+$("editModal").classList.add("hidden");
+}
 
 $("saveEdit").onclick=()=>{
+
 let id=$("editId").value;
 let w=db.workers.find(x=>x.id===id);
+
 if(!w)return;
 
+let oldName=w.name;
 let newName=$("editName").value.trim();
-if(!newName)return alert("El nombre no puede estar vacío.");
+
+if(!newName){
+alert("El nombre no puede quedar vacío.");
+return;
+}
 
 w.name=newName;
 w.email=$("editEmail").value.trim();
@@ -497,122 +904,63 @@ w.parking=$("editParking").value;
 w.address=$("editAddress").value.trim();
 
 db.entries.forEach(e=>{
-if(e.workerId===id)e.worker=newName;
+if(e.workerId===id||(!e.workerId&&e.worker===oldName)){
+e.workerId=id;
+e.worker=newName;
+}
 });
 
 persist();
-render();
 closeEdit();
-alert("✅ Información actualizada. Las horas se conservaron.");
+renderAll();
+
+alert("✅ Información actualizada. El historial se conservó.");
 };
 
 $("deleteWorker").onclick=()=>{
+
 let id=$("editId").value;
 let w=db.workers.find(x=>x.id===id);
+
 if(!w)return;
 
-if(!confirm("¿Seguro que deseas eliminar a "+w.name+"?"))return;
-if(!confirm("También se eliminará su historial. ¿Continuar?"))return;
+if(!confirm(
+"¿Seguro que deseas eliminar a "+w.name+"?"
+))return;
+
+if(!confirm(
+"También se eliminarán todas sus horas. ¿Continuar?"
+))return;
 
 db.workers=db.workers.filter(x=>x.id!==id);
-db.entries=db.entries.filter(e=>e.workerId!==id);
+
+db.entries=db.entries.filter(e=>
+!(e.workerId===id||(!e.workerId&&e.worker===w.name))
+);
 
 persist();
-render();
 closeEdit();
+renderAll();
 };
 
-function openEntryEdit(id){
-let e=db.entries.find(x=>x.id===id);
-if(!e)return;
+function openHistory(id){
 
-$("entryId").value=e.id;
-$("entryDate").value=e.date;
-$("entryParking").value=e.parking||"No";
-$("entryStart").value=e.start||"08:00";
-$("entryEnd").value=e.end||"17:00";
-$("entryHours").value=e.hours||0;
-$("entryProject").value=e.project||"";
-$("entryNote").value=e.note||"";
-
-$("entryModal").classList.remove("hidden");
-}
-
-function closeEntryEdit(){$("entryModal").classList.add("hidden")}
-
-$("saveEntryEdit").onclick=()=>{
-let e=db.entries.find(x=>x.id===$("entryId").value);
-if(!e)return;
-
-e.date=$("entryDate").value;
-e.parking=$("entryParking").value;
-e.start=$("entryStart").value;
-e.end=$("entryEnd").value;
-e.hours=Number($("entryHours").value||0);
-e.project=$("entryProject").value.trim();
-e.note=$("entryNote").value.trim();
-
-persist();
-render();
-closeEntryEdit();
-closeModal();
-alert("✅ Jornada corregida.");
-};
-
-$("deleteEntry").onclick=()=>{
-let id=$("entryId").value;
-if(!confirm("¿Eliminar esta jornada?"))return;
-
-db.entries=db.entries.filter(x=>x.id!==id);
-
-persist();
-render();
-closeEntryEdit();
-closeModal();
-};
-
-let currentReportWorkerId=null;
-
-function openReport(id){
 let w=db.workers.find(x=>x.id===id);
 if(!w)return;
 
-currentReportWorkerId=id;
+let es=workerEntries(w);
 
-let es=getWorkerEntries(w);
-let total=es.reduce((a,e)=>a+Number(e.hours||0),0);
+let total=es.reduce(
+(a,e)=>a+Number(e.hours||0),0
+);
 
-let groups={};
+$("historyContent").innerHTML=`
 
-es.forEach(e=>{
-let k=weekStart(e.date);
-if(!groups[k])groups[k]=[];
-groups[k].push(e);
-});
-
-let weeks=Object.keys(groups).sort().reverse().map(k=>{
-let a=groups[k];
-let t=a.reduce((n,e)=>n+Number(e.hours||0),0);
-
-return`
-<div class="workerCard">
-<b>Semana del ${prettyDate(k)}</b>
-<span class="hours" style="float:right">${fmt(t)} h</span>
-${a.map(e=>`
-<div class="infoLine">
-📅 ${prettyDate(e.date)} · ${e.start||"--"}–${e.end||"--"} · <b>${fmt(e.hours)} h</b>
-</div>
-`).join("")}
-</div>`;
-}).join("");
-
-$("reportModalContent").innerHTML=`
 <div class="profile">
-<b style="font-size:21px">${w.name}</b><br>
+<b style="font-size:22px">${w.name}</b><br>
 👷 ${w.role||"Sin puesto"}<br>
 📞 ${w.phone||"Sin teléfono"}<br>
-✉️ ${w.email||"Sin correo"}<br>
-📍 ${w.address||"Sin dirección"}
+✉️ ${w.email||"Sin correo"}
 </div>
 
 <div class="totalBox">
@@ -621,76 +969,458 @@ $("reportModalContent").innerHTML=`
 <div>${es.length} jornadas</div>
 </div>
 
-<h3 style="margin-top:18px">Resumen por semana</h3>
-${weeks||"<p class='muted'>Sin jornadas registradas.</p>"}
+<h3 style="margin-top:20px">
+Jornadas registradas
+</h3>
+
+${es.length?es.map(e=>`
+
+<div class="entry">
+
+<div class="entryHead">
+
+<div>
+<b>📅 ${prettyDate(e.date)}</b>
+
+<div class="infoLine">
+Entrada: ${e.start||"--"}<br>
+Salida: ${e.end||"--"}<br>
+Horas: ${fmt(e.hours)}<br>
+Dirección: ${e.project||"Sin dirección"}<br>
+Parqueo: ${e.parking||"No"}
+${e.note?`<br>Nota: ${e.note}`:""}
+</div>
+
+</div>
+
+<span class="hours">
+${fmt(e.hours)} h
+</span>
+
+</div>
+
+<button class="secondary"
+onclick="editHistoricalDay('${w.id}','${e.date}')">
+✏️ Editar este día
+</button>
+
+</div>
+
+`).join(""):
+
+`<p class="muted">
+No tiene horas registradas.
+</p>`}
+
+`;
+
+$("historyModal").classList.remove("hidden");
+}
+
+function closeHistory(){
+$("historyModal").classList.add("hidden");
+}
+
+function editHistoricalDay(workerId,date){
+
+closeHistory();
+nav("registrar");
+
+$("worker").value=workerId;
+
+currentWeek=mondayOf(date);
+$("weekPicker").value=date;
+
+renderWeek();
+
+let index=Math.round(
+(parseDate(date)-parseDate(currentWeek))/
+86400000
+);
+
+setTimeout(()=>{
+let body=$("dayBody"+index);
+if(body){
+body.classList.remove("hidden");
+body.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+}
+},150);
+}
+
+function renderReport(){
+
+let w=db.workers.find(
+x=>x.id===$("reportWorker").value
+);
+
+if(!w){
+$("reportContent").innerHTML=
+"<p class='muted'>Agrega un trabajador.</p>";
+return;
+}
+
+let monday=mondayOf(
+$("reportWeek").value||today()
+);
+
+let sunday=addDays(monday,6);
+
+let es=workerEntries(w).filter(e=>
+e.date>=monday&&e.date<=sunday
+);
+
+let total=es.reduce(
+(a,e)=>a+Number(e.hours||0),0
+);
+
+$("reportContent").innerHTML=`
+
+<div class="profile">
+<b style="font-size:20px">${w.name}</b><br>
+Puesto: ${w.role||"No especificado"}<br>
+Semana: ${prettyDate(monday)}
+— ${prettyDate(sunday)}
+</div>
+
+<div class="totalBox">
+<div>Total de la semana</div>
+<b>${fmt(total)} horas</b>
+<div>${es.length} días registrados</div>
+</div>
+
+`;
+}
+
+$("reportWorker").onchange=renderReport;
+$("reportWeek").onchange=renderReport;
+
+function openWorkerReport(id){
+
+nav("reportes");
+
+$("reportWorker").value=id;
+$("reportWeek").value=today();
+
+renderReport();
+openReportModal();
+}
+
+function openReportModal(){
+
+let w=db.workers.find(
+x=>x.id===$("reportWorker").value
+);
+
+if(!w)return;
+
+let monday=mondayOf(
+$("reportWeek").value||today()
+);
+
+let sunday=addDays(monday,6);
+
+let es=workerEntries(w).filter(e=>
+e.date>=monday&&e.date<=sunday
+);
+
+let total=es.reduce(
+(a,e)=>a+Number(e.hours||0),0
+);
+
+currentReportWorker=w.id;
+currentReportMonday=monday;
+
+let rows=DAY_NAMES.map((day,index)=>{
+
+let date=addDays(monday,index);
+
+let e=es.find(x=>x.date===date);
+
+return`
+
+<div class="entry">
+
+<div class="entryHead">
+
+<div>
+<b>${day} · ${prettyDate(date)}</b>
+
+<div class="infoLine">
+
+${e?
+`Entrada: ${e.start||"--"}<br>
+Salida: ${e.end||"--"}<br>
+Dirección: ${e.project||"Sin dirección"}<br>
+Parqueo: ${e.parking||"No"}
+${e.note?`<br>Nota: ${e.note}`:""}`
+
+:"Sin horas registradas"}
+
+</div>
+</div>
+
+<span class="hours">
+${e?fmt(e.hours)+" h":"—"}
+</span>
+
+</div>
+</div>
+
+`;
+
+}).join("");
+
+$("reportModalContent").innerHTML=`
+
+<div class="profile">
+<b style="font-size:22px">${w.name}</b><br>
+👷 ${w.role||"Sin puesto"}<br>
+📞 ${w.phone||"Sin teléfono"}<br>
+✉️ ${w.email||"Sin correo"}<br>
+📍 ${w.address||"Sin dirección"}<br><br>
+<b>Semana:</b>
+${prettyDate(monday)}
+— ${prettyDate(sunday)}
+</div>
+
+${rows}
+
+<div class="totalBox">
+<div>Total semanal</div>
+<b>${fmt(total)} horas</b>
+</div>
+
 `;
 
 $("reportModal").classList.remove("hidden");
 }
 
-function closeReport(){$("reportModal").classList.add("hidden")}
+function closeReport(){
+$("reportModal").classList.add("hidden");
+}
 
-function reportHTML(w){
-let es=getWorkerEntries(w);
-let total=es.reduce((a,e)=>a+Number(e.hours||0),0);
+$("pdfShare").onclick=openReportModal;
 
-let rows=es.map(e=>`
-<tr>
-<td>${prettyDate(e.date)}</td>
-<td>${e.start||"--"}</td>
-<td>${e.end||"--"}</td>
-<td>${fmt(e.hours)}</td>
-<td>${e.project||""}</td>
-<td>${e.parking||"No"}</td>
-<td>${e.note||""}</td>
-</tr>
-`).join("");
+function reportHTML(w,monday){
+
+let sunday=addDays(monday,6);
+
+let es=workerEntries(w).filter(e=>
+e.date>=monday&&e.date<=sunday
+);
+
+let total=es.reduce(
+(a,e)=>a+Number(e.hours||0),0
+);
+
+let rows=DAY_NAMES.map((day,index)=>{
+
+let date=addDays(monday,index);
+let e=es.find(x=>x.date===date);
 
 return`
+
+<tr>
+<td><b>${day}</b><br>${prettyDate(date)}</td>
+<td>${e?.start||"--"}</td>
+<td>${e?.end||"--"}</td>
+<td>${e?fmt(e.hours):"--"}</td>
+<td>${e?.project||""}</td>
+<td>${e?.parking||""}</td>
+<td>${e?.note||""}</td>
+</tr>
+
+`;
+
+}).join("");
+
+return`
+
 <!doctype html>
 <html>
 <head>
+
 <meta charset="utf-8">
-<title>Informe - ${w.name}</title>
+
+<title>
+Informe semanal - ${w.name}
+</title>
+
 <style>
-@page{margin:16mm}
-body{font-family:Arial,sans-serif;color:#142844;margin:0}
-.head{display:flex;align-items:center;gap:16px;border-bottom:3px solid #075bd8;padding-bottom:14px;margin-bottom:18px}
-.logo{width:70px;height:70px;object-fit:contain;border-radius:14px}
-h1{margin:0;color:#075bd8;font-size:25px}
-.sub{color:#64758b;margin-top:4px}
-.profile{margin:18px 0;line-height:1.7;background:#f5f8fc;padding:12px;border-radius:10px}
-table{width:100%;border-collapse:collapse;font-size:11px}
-th{background:#eaf3ff;text-align:left}
-th,td{border:1px solid #ccd8e6;padding:7px}
-.total{margin-top:18px;font-size:20px;font-weight:bold;color:#075bd8}
-.foot{margin-top:30px;border-top:1px solid #d8e2ee;padding-top:10px;color:#68788c;font-size:10px;text-align:center}
+
+@page{margin:14mm}
+
+body{
+font-family:Arial,sans-serif;
+color:#142844;
+margin:0;
+padding-bottom:30px
+}
+
+.back{
+position:sticky;
+top:0;
+z-index:10;
+display:block;
+width:100%;
+border:0;
+background:#075bd8;
+color:white;
+font-size:17px;
+font-weight:bold;
+padding:15px;
+margin-bottom:20px
+}
+
+.head{
+display:flex;
+align-items:center;
+gap:15px;
+border-bottom:3px solid #075bd8;
+padding-bottom:13px;
+margin-bottom:18px
+}
+
+.logo{
+width:70px;
+height:70px;
+object-fit:contain;
+border-radius:14px
+}
+
+h1{
+margin:0;
+color:#075bd8;
+font-size:25px
+}
+
+.sub{
+color:#64758b;
+margin-top:4px
+}
+
+.profile{
+margin:18px 0;
+line-height:1.7;
+background:#f5f8fc;
+padding:12px;
+border-radius:10px
+}
+
+.week{
+font-size:16px;
+font-weight:bold;
+margin:15px 0
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:10px
+}
+
+th{
+background:#eaf3ff;
+text-align:left
+}
+
+th,td{
+border:1px solid #ccd8e6;
+padding:7px
+}
+
+.total{
+margin-top:18px;
+font-size:21px;
+font-weight:bold;
+color:#075bd8
+}
+
+.foot{
+margin-top:30px;
+border-top:1px solid #d8e2ee;
+padding-top:10px;
+color:#68788c;
+font-size:10px;
+text-align:center
+}
+
+@media print{
+
+.back{
+display:none!important
+}
+
+.head,.profile,th{
+-webkit-print-color-adjust:exact;
+print-color-adjust:exact
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
+<button class="back"
+onclick="window.close()">
+← Volver a Control de Horas
+</button>
+
 <div class="head">
+
 <img class="logo" src="icon.png">
+
 <div>
 <h1>CONTROL DE HORAS</h1>
-<div class="sub">Informe profesional del trabajador</div>
+<div class="sub">
+Informe semanal del trabajador
 </div>
+</div>
+
 </div>
 
 <div class="profile">
-<b>Trabajador:</b> ${w.name}<br>
-<b>Puesto:</b> ${w.role||"No especificado"}<br>
-<b>Teléfono:</b> ${w.phone||"No especificado"}<br>
-<b>Correo:</b> ${w.email||"No especificado"}<br>
-<b>Horario habitual:</b> ${w.defaultStart||"--"} - ${w.defaultEnd||"--"}<br>
-<b>Dirección / Proyecto:</b> ${w.address||"No especificada"}
+
+<b>Trabajador:</b>
+${w.name}<br>
+
+<b>Puesto:</b>
+${w.role||"No especificado"}<br>
+
+<b>Teléfono:</b>
+${w.phone||"No especificado"}<br>
+
+<b>Correo:</b>
+${w.email||"No especificado"}<br>
+
+<b>Horario habitual:</b>
+${w.defaultStart||"--"}
+-
+${w.defaultEnd||"--"}<br>
+
+<b>Dirección / Proyecto:</b>
+${w.address||"No especificada"}
+
+</div>
+
+<div class="week">
+Semana:
+${prettyDate(monday)}
+—
+${prettyDate(sunday)}
 </div>
 
 <table>
+
 <thead>
+
 <tr>
-<th>Fecha</th>
+<th>Día / Fecha</th>
 <th>Entrada</th>
 <th>Salida</th>
 <th>Horas</th>
@@ -698,80 +1428,169 @@ th,td{border:1px solid #ccd8e6;padding:7px}
 <th>Parqueo</th>
 <th>Nota</th>
 </tr>
+
 </thead>
-<tbody>${rows}</tbody>
+
+<tbody>
+${rows}
+</tbody>
+
 </table>
 
-<div class="total">Total de horas: ${fmt(total)}</div>
+<div class="total">
+Total semanal:
+${fmt(total)} horas
+</div>
 
 <div class="foot">
-<img src="icon.png" style="width:28px;height:28px;object-fit:contain;vertical-align:middle;margin-right:7px">
+
+<img src="icon.png"
+style="width:28px;height:28px;object-fit:contain;vertical-align:middle;margin-right:7px">
+
 Control de Horas · Wilmer Vargas
+
 </div>
 
 </body>
-</html>`;
+</html>
+
+`;
 }
 
-function openPrintable(w){
+function openPrintable(w,monday){
+
 let win=window.open("","_blank");
 
 if(!win){
-alert("Permite las ventanas emergentes para crear el PDF.");
+alert(
+"Permite las ventanas emergentes para abrir el informe."
+);
 return;
 }
 
 win.document.open();
-win.document.write(reportHTML(w));
+win.document.write(
+reportHTML(w,monday)
+);
 win.document.close();
 
-setTimeout(()=>{
-win.focus();
-win.print();
-},500);
+/*
+El informe NO imprime automáticamente.
+Primero aparece en pantalla con el botón Volver.
+Desde ahí el usuario puede usar Imprimir/Compartir.
+*/
+
 }
 
-$("reportPrintBtn").onclick=()=>{
-let w=db.workers.find(x=>x.id===currentReportWorkerId);
-if(w)openPrintable(w);
-};
+$("printPDF").onclick=()=>{
 
-$("reportWorker").onchange=renderReport;
+let w=db.workers.find(
+x=>x.id===currentReportWorker
+);
 
-$("pdfShare").onclick=()=>{
-let w=db.workers.find(x=>x.id===$("reportWorker").value);
-if(w)openReport(w.id);
+if(!w)return;
+
+openPrintable(
+w,
+currentReportMonday
+);
+
 };
 
 $("export").onclick=()=>{
-let blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});
+
+let blob=new Blob(
+[JSON.stringify(db,null,2)],
+{type:"application/json"}
+);
+
 let a=document.createElement("a");
+
 a.href=URL.createObjectURL(blob);
-a.download="respaldo-control-horas.json";
+
+a.download=
+"respaldo-control-horas.json";
+
 a.click();
 };
 
-function nav(p){
-document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));
-$(p).classList.remove("hidden");
+function nav(page){
 
-document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.page===p));
-document.querySelectorAll(".bottom button").forEach(x=>x.classList.toggle("on",x.dataset.page===p));
+document
+.querySelectorAll(".page")
+.forEach(x=>
+x.classList.add("hidden")
+);
 
-if(p==="reportes")renderReport();
+$(page).classList.remove("hidden");
+
+document
+.querySelectorAll(".tab")
+.forEach(x=>
+x.classList.toggle(
+"active",
+x.dataset.page===page
+)
+);
+
+document
+.querySelectorAll(".bottom button")
+.forEach(x=>
+x.classList.toggle(
+"on",
+x.dataset.page===page
+)
+);
+
+if(page==="registrar"){
+renderWeek();
 }
 
-document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>nav(b.dataset.page));
-
-function render(){
-renderWorkers();
-renderStats();
-renderRecent();
+if(page==="reportes"){
 renderReport();
 }
 
+}
+
+document
+.querySelectorAll("[data-page]")
+.forEach(b=>{
+b.onclick=()=>nav(b.dataset.page);
+});
+
+function renderAll(){
+
+let selectedWorker=
+$("worker").value;
+
+let selectedReport=
+$("reportWorker").value;
+
+renderWorkers();
+
+if(
+selectedWorker &&
+db.workers.some(w=>w.id===selectedWorker)
+){
+$("worker").value=selectedWorker;
+}
+
+if(
+selectedReport &&
+db.workers.some(w=>w.id===selectedReport)
+){
+$("reportWorker").value=selectedReport;
+}
+
+renderWeek();
+renderStats();
+renderReport();
+
+}
+
 persist();
-render();
+renderAll();
+
 </script>
 </body>
 </html>
